@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     rollupOptions: {
+      external: ["react-resize-observer"],
       plugins: [
         copy({
           hook: "writeBundle",
@@ -20,6 +21,6 @@ export default defineConfig({
           ],
         }),
       ],
-    }
+    },
   },
 });

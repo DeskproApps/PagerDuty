@@ -1,85 +1,92 @@
-import { useState } from "react";
 import {
-  Context,
-  H1,
-  HorizontalDivider,
   LoadingSpinner,
-  Property,
-  proxyFetch,
   Stack,
+  useDeskproAppClient,
   useDeskproAppEvents,
+  useDeskproLatestAppContext,
   useInitialisedDeskproAppClient,
 } from "@deskpro/app-sdk";
-import * as React from "react";
-/*
-    Note: the following page component contains example code, please remove the contents of this component before you
-    develop your app. For more information, please refer to our apps
-    guides @see https://support.deskpro.com/en-US/guides/developers/anatomy-of-an-app
-*/
+import { useNavigate } from "react-router-dom";
+import { useQueryWithClient } from "../hooks/useQueryWithClient";
+import { useEffect, useState } from "react";
+import { useLinkIncidents } from "../hooks/hooks";
+import { getIncidentsById } from "../api/api";
+import { FieldMapping } from "../components/FieldMapping/FieldMapping";
+import IncidentJson from "../mapping/incident.json";
 
 export const Main = () => {
-  const [ticketContext, setTicketContext] = useState<Context | null>(null);
-  
-  const [examplePosts, setExamplePosts] = useState<
-    { id: string; title: string }[]
-  >([]);
-
-  // Add a "refresh" button @see https://support.deskpro.com/en-US/guides/developers/app-elements
-  useInitialisedDeskproAppClient((client) => {
-    client.registerElement("myRefreshButton", { type: "refresh_button" });
-  });
-
-  // Listen for the "change" event and store the context data
-  // as local state @see https://support.deskpro.com/en-US/guides/developers/app-events
+  const { client } = useDeskproAppClient();
+  const { context } = useDeskproLatestAppContext();
+  const navigate = useNavigate();
+  const [incidentIds, setIncidentIds] = useState<string[]>([]);
+  const { getLinkedIncidents } = useLinkIncidents();
+  console.log("a");
   useDeskproAppEvents({
-    onChange: setTicketContext,
+    async onElementEvent(id) {
+      switch (id) {
+        case "menuButton":
+          navigate("/findOrCreate");
+          break;
+
+        case "homeButton":
+          navigate("/redirect");
+      }
+    },
   });
 
-  // Use the apps proxy to fetch data from a third party
-  // API @see https://support.deskpro.com/en-US/guides/developers/app-proxy
-  useInitialisedDeskproAppClient((client) =>
-    (async () => {
-      const fetch = await proxyFetch(client);
+  useInitialisedDeskproAppClient((client) => {
+    client.setTitle("PagerDuty");
 
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
+    client.registerElement("homeButton", {
+      type: "home_button",
+    });
 
-      const posts = await response.json();
+    client.deregisterElement("editButton");
 
-      setExamplePosts(posts.slice(0, 3));
-    })()
+    client.registerElement("refreshButton", {
+      type: "refresh_button",
+    });
+  }, []);
+
+  const incidentsByIdQuery = useQueryWithClient(
+    "getIncidentsById",
+    (client) => getIncidentsById(client, incidentIds),
+    {
+      enabled: !!incidentIds.length,
+    }
   );
 
-  useInitialisedDeskproAppClient((client) => {
-    // If this is a "global" target app, then we can set the width of the app using CSS units
-    client.setWidth("50vw");
-  });
+  useEffect(() => {
+    (async () => {
+      if (!context || !client) return;
 
-  // If we don't have a ticket context yet, show a loading spinner
-  if (ticketContext === null) {
-    return <LoadingSpinner />;
-  }
+      const linkedIncidents = await getLinkedIncidents();
 
-  // Show some information about a given
-  // ticket @see https://support.deskpro.com/en-US/guides/developers/targets and third party API
+      if (!linkedIncidents || linkedIncidents.length === 0) {
+        navigate("/findOrCreate");
+
+        return;
+      }
+
+      setIncidentIds(linkedIncidents as string[]);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [context, client]);
+
+  const incidents = incidentsByIdQuery.data;
+
+  if (incidentsByIdQuery.isFetching || !incidents) return <LoadingSpinner />;
+
   return (
-    <>
-      <H1>Ticket Data</H1>
-      <Stack gap={12} vertical>
-        <Property title="Ticket ID">{ticketContext.data.ticket.id}</Property>
-        <Property title="Ticket Subject">
-          {ticketContext.data.ticket.subject}
-        </Property>
-      </Stack>
-      <HorizontalDivider width={2} />
-      <H1>Example Posts</H1>
-      {examplePosts.map((post) => (
-        <div key={post.id}>
-          <Property title="Post Title">{post.title}</Property>
-          <HorizontalDivider width={2} />
-        </div>
-      ))}
-    </>
+    <Stack vertical style={{ width: "100%" }}>
+      <FieldMapping
+        fields={incidents}
+        metadata={IncidentJson.link}
+        idKey={IncidentJson.idKey}
+        internalChildUrl={`/view/contact/`}
+        externalChildUrl={IncidentJson.externalUrl}
+        childTitleAccessor={(e) => e.title}
+      />
+    </Stack>
   );
 };

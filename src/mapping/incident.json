@@ -1,0 +1,166 @@
+{
+  "titleKeyName": "name",
+  "idKey": "id",
+  "externalUrl": "incidents/",
+  "create": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "type",
+      "label": "Type",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "status",
+      "label": "Status",
+      "type": "text"
+    },
+    {
+      "name": "assignee",
+      "label": "Assignee",
+      "type": "text"
+    },
+    {
+      "name": "urgency",
+      "label": "Urgency",
+      "type": "text"
+    },
+    {
+      "name": "priority",
+      "label": "Priority",
+      "type": "text"
+    },
+    {
+      "name": "description",
+      "label": "Description",
+      "type": "text"
+    }
+  ],
+  "view": [
+    [
+      {
+        "name": "incident_number",
+        "label": "Incident Number",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "incident_number",
+        "label": "Incident Number",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "incident_number",
+        "label": "Incident Number",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "incident_number",
+        "label": "Incident Number",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "incident_number",
+        "label": "Incident Number",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "incident_number",
+        "label": "Incident Number",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "incident_number",
+        "label": "Incident Number",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "incident_number",
+        "label": "Incident Number",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "incident_number",
+        "label": "Incident Number",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "incident_number",
+        "label": "Incident Number",
+        "type": "text"
+      }
+    ]
+  ],
+  "link": [
+    [
+      {
+        "name": "incident_number",
+        "label": "Incident Number",
+        "type": "text"
+      },
+      {
+        "name": "priority",
+        "label": "Priority",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "service",
+        "label": "Service",
+        "type": "service.summary"
+      },
+      {
+        "name": "created_at",
+        "label": "Created",
+        "type": "date"
+      }
+    ],
+    [
+      {
+        "name": "urgency",
+        "label": "Urgency",
+        "type": "text"
+      },
+      {
+        "name": "status",
+        "label": "Status",
+        "type": "text"
+      }
+    ],
+    [
+      {
+        "name": "assignees",
+        "label": "Assignees",
+        "type": "assignees"
+      },
+      {
+        "name": "linked_tickets",
+        "label": "Deskpro Tickets",
+        "type": "text"
+      }
+    ]
+  ]
+}
