@@ -26,6 +26,10 @@ export const LinkIncident = () => {
 
         if (!linkedContacts) return;
 
+        if (!Array.isArray(linkedContacts)) {
+          return;
+        }
+
         const linkedIncidents = data?.incident?.filter((item) =>
           linkedContacts.includes(item.id)
         );
@@ -46,7 +50,7 @@ export const LinkIncident = () => {
         type="text"
         leftIcon={faMagnifyingGlass as AnyIcon}
       />
-      {incidentsData?.incident.length !== 0 && (
+      {incidentsData?.incident && incidentsData?.incident.length !== 0 && (
         <Stack vertical gap={6}>
           <Stack vertical style={{ width: "100%" }} gap={5}>
             <Stack
