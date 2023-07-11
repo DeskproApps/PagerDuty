@@ -33,7 +33,7 @@
     {
       "name": "priority",
       "label": "Priority",
-      "type": "text"
+      "type": "summary"
     },
     {
       "name": "description",
@@ -123,14 +123,14 @@
       {
         "name": "priority",
         "label": "Priority",
-        "type": "text"
+        "type": "summary"
       }
     ],
     [
       {
         "name": "service",
         "label": "Service",
-        "type": "service.summary"
+        "type": "summary"
       },
       {
         "name": "created_at",
@@ -152,7 +152,7 @@
     ],
     [
       {
-        "name": "assignees",
+        "name": "assignments",
         "label": "Assignees",
         "type": "assignees"
       },

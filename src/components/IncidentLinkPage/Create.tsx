@@ -43,8 +43,8 @@ export const CreateIncident = () => {
   const submit = () => {};
 
   return (
-    <form onSubmit={handleSubmit(submit)}>
-      <Stack vertical>
+    <form onSubmit={handleSubmit(submit)} style={{ width: "100%" }}>
+      <Stack vertical style={{ width: "100%" }} gap={6}>
         {inputs.map((field, i) => (
           <FieldMappingInput
             key={i}

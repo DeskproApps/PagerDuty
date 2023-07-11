@@ -1,5 +1,5 @@
 export interface PaginationIncident {
-  incident: Incident[];
+  incidents: Incident[];
   limit: number;
   offset: number;
   total: null;
@@ -64,6 +64,7 @@ export interface AlertCounts {
 export interface Assignment {
   at: string;
   assignee: EscalationPolicy;
+  summary: string;
 }
 
 export interface IncidentsResponder {

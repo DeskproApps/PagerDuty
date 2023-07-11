@@ -20,7 +20,7 @@ export const Main = () => {
   const navigate = useNavigate();
   const [incidentIds, setIncidentIds] = useState<string[]>([]);
   const { getLinkedIncidents } = useLinkIncidents();
-  console.log("a");
+
   useDeskproAppEvents({
     async onElementEvent(id) {
       switch (id) {
@@ -83,7 +83,7 @@ export const Main = () => {
         fields={incidents}
         metadata={IncidentJson.link}
         idKey={IncidentJson.idKey}
-        internalChildUrl={`/view/contact/`}
+        internalChildUrl={`/view/incident/`}
         externalChildUrl={IncidentJson.externalUrl}
         childTitleAccessor={(e) => e.title}
       />

@@ -22,7 +22,7 @@ export const useLinkIncidents = () => {
       await Promise.all(
         (incidentsId || []).map((id) =>
           client
-            ?.getEntityAssociation("linkedXeroContacts", deskproUser?.id)
+            ?.getEntityAssociation("linkedincidents", deskproUser?.id)
             .set(id)
         )
       );
@@ -39,16 +39,16 @@ export const useLinkIncidents = () => {
     if (!client || !deskproUser) return;
 
     return await client
-      .getEntityAssociation("linkedXeroContacts", deskproUser.id)
+      .getEntityAssociation("linkedincidents", deskproUser.id)
       .list();
   }, [client, deskproUser]);
 
-  const unlinkContact = useCallback(
+  const unlinkIncident = useCallback(
     async (incidentId: string) => {
       if (!client || !deskproUser) return;
 
       await client
-        .getEntityAssociation("linkedXeroContacts", deskproUser.id)
+        .getEntityAssociation("linkedincidents", deskproUser.id)
         .delete(incidentId);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },
@@ -58,6 +58,6 @@ export const useLinkIncidents = () => {
     linkIncidents,
     isLinking,
     getLinkedIncidents,
-    unlinkContact,
+    unlinkIncident,
   };
 };
