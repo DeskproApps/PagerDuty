@@ -49,8 +49,6 @@ export const CreateNote = () => {
     <Stack style={{ width: "100%" }} vertical gap={8}>
       <InputWithTitle
         title="New note"
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore wrong type
         setValue={(e) => setNote(e.target.value)}
         data-testid="note-input"
         value={note}
