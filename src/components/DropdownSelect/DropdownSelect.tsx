@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
   DivAsInput,
   Dropdown as DropdownComponent,
@@ -39,9 +37,8 @@ export const DropdownSelect = ({
   multiple,
 }: Props) => {
   const { theme } = useDeskproAppTheme();
-  // This works fine but the types are completely wrong
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const dataOptions = useMemo<any>(() => {
+
+  const dataOptions = useMemo(() => {
     return data?.map((dataInList) => ({
       key: dataInList.key,
       label: <Label label={dataInList.key}></Label>,
@@ -68,6 +65,7 @@ export const DropdownSelect = ({
           </Stack>
         )}
       </Stack>
+      {/* eslint-disable-next-line @typescript-eslint/no-explicit-any*/}
       <DropdownComponent<any, HTMLDivElement>
         placement="bottom-start"
         options={dataOptions}
@@ -75,7 +73,6 @@ export const DropdownSelect = ({
         autoscrollText={"Autoscroll"}
         selectedIcon={faCheck as AnyIcon}
         externalLinkIcon={faExternalLinkAlt as AnyIcon}
-        // @ts-ignore
         onSelectOption={(option) => {
           onChange(
             multiple

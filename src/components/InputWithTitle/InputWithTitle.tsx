@@ -5,8 +5,7 @@ interface Props {
   error?: boolean;
   required?: boolean;
   value?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  setValue: (item: { target: { value: string } }) => void;
 }
 
 export const InputWithTitle = ({

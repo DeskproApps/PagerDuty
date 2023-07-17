@@ -41,7 +41,10 @@ export const CreateIncident = () => {
     getCurrentUser(client)
   );
 
-  const submitMutation = useQueryMutationWithClient<Incident>((client, data) =>
+  const submitMutation = useQueryMutationWithClient<
+    Incident,
+    { incident: Incident }
+  >((client, data) =>
     createIncident(client, data, currentUserQuery.data?.user?.email as string)
   );
 
@@ -51,9 +54,8 @@ export const CreateIncident = () => {
 
   useEffect(() => {
     if (!submitMutation.isSuccess) return;
+
     (async () => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-ignore
       await linkIncidents([submitMutation.data?.incident?.id as string]);
 
       navigate("/redirect");

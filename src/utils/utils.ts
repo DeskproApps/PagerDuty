@@ -25,35 +25,9 @@ export const getObjectValue = (obj: any, keyString: string) => {
   return value;
 };
 
-export const timeSince = (date: Date) => {
-  const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
-
-  let interval = seconds / 31536000;
-
-  if (interval > 1) {
-    return Math.floor(interval) + " yea";
-  }
-  interval = seconds / 2592000;
-  if (interval > 1) {
-    return Math.floor(interval) + " mon";
-  }
-  interval = seconds / 86400;
-  if (interval > 1) {
-    return Math.floor(interval) + " days";
-  }
-  interval = seconds / 3600;
-  if (interval > 1) {
-    return Math.floor(interval) + " hou";
-  }
-  interval = seconds / 60;
-  if (interval > 1) {
-    return Math.floor(interval) + " min";
-  }
-  return Math.floor(seconds) + " sec";
-};
-
 export const makeFirstLetterUppercase = (str: string) => {
   if (!str) return str;
+
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
