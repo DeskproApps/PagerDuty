@@ -2,9 +2,10 @@ import {
   AnyIcon,
   Button,
   Stack,
+  Title,
   useInitialisedDeskproAppClient,
+  useQueryWithClient,
 } from "@deskpro/app-sdk";
-import { useQueryWithClient } from "../../hooks/useQueryWithClient";
 import { getIncidents } from "../../api/api";
 import { useState } from "react";
 import useDebounce from "../../hooks/debounce";
@@ -34,7 +35,7 @@ export const LinkIncident = () => {
   }, []);
 
   const incidentsQuery = useQueryWithClient(
-    ["getIncidents", page, debouncedText],
+    ["getIncidents", page.toString(), debouncedText],
     (client) => getIncidents(client, page, debouncedText),
     {
       onSuccess: async (data) => {
@@ -61,6 +62,9 @@ export const LinkIncident = () => {
   );
 
   const incidentsData = incidentsQuery.data;
+
+  if (incidentsData?.incidents.length === 0)
+    return <Title title="No Incidents Found." />;
 
   return (
     <Stack gap={10} style={{ width: "100%" }} vertical>

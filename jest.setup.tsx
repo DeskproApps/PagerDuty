@@ -30,6 +30,22 @@ jest.mock("./src/styles.ts", () => ({
 
 jest.mock("@deskpro/app-sdk", () => ({
   ...jest.requireActual("@deskpro/app-sdk"),
+  useQueryWithClient: (queryKey: string, queryFn: () => any, options: any) => {
+    queryKey;
+    options;
+    if (!options || options?.enabled == null || options?.enabled == true) {
+      return {
+        isSuccess: true,
+        data: queryFn(),
+        isLoading: false,
+      };
+    }
+    return {
+      isSuccess: false,
+      data: null,
+      isLoading: false,
+    };
+  },
   useDeskproAppClient: () => ({
     client: {
       setHeight: () => {},
@@ -83,25 +99,6 @@ jest.mock("@deskpro/app-sdk", () => ({
       settings: { store_url: "https://store.com" },
     },
   }),
-}));
-
-jest.mock("./src/hooks/useQueryWithClient", () => ({
-  useQueryWithClient: (queryKey: string, queryFn: () => any, options: any) => {
-    queryKey;
-    options;
-    if (!options || options?.enabled == null || options?.enabled == true) {
-      return {
-        isSuccess: true,
-        data: queryFn(),
-        isLoading: false,
-      };
-    }
-    return {
-      isSuccess: false,
-      data: null,
-      isLoading: false,
-    };
-  },
 }));
 
 jest.mock("./src/hooks/hooks", () => ({

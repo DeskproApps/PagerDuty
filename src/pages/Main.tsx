@@ -1,13 +1,14 @@
 import {
   LoadingSpinner,
   Stack,
+  Title,
   useDeskproAppClient,
   useDeskproAppEvents,
   useDeskproLatestAppContext,
   useInitialisedDeskproAppClient,
+  useQueryWithClient,
 } from "@deskpro/app-sdk";
 import { useNavigate } from "react-router-dom";
-import { useQueryWithClient } from "../hooks/useQueryWithClient";
 import { useEffect, useState } from "react";
 import { useLinkIncidents, useTicketCount } from "../hooks/hooks";
 import { getIncidentsById } from "../api/api";
@@ -67,12 +68,16 @@ export const Main = () => {
     },
   });
   const incidentsByIdQuery = useQueryWithClient(
-    "getIncidentsById",
+    ["getIncidentsById"],
     (client) => getIncidentsById(client, incidentIds),
     {
       enabled: !!incidentIds.length,
     }
   );
+
+  useEffect(() => {
+    if (!incidentsByIdQuery.error) return;
+  }, [incidentsByIdQuery.error]);
 
   useEffect(() => {
     (async () => {
@@ -101,6 +106,8 @@ export const Main = () => {
 
   if (incidentsByIdQuery.isFetching || !incidents || !incidentLinketCount)
     return <LoadingSpinner />;
+
+  if (incidents.length === 0) return <Title title="No found" />;
 
   return (
     <Stack vertical style={{ width: "100%" }}>

@@ -92,14 +92,6 @@ describe("Edit Page", () => {
 
     userEvent.click(submitButton);
     await waitFor(() => expect(Api.editIncident).toHaveBeenCalledTimes(1));
-
-    // fireEvent.change(getByTestId("input-title"), {
-    //   target: { value: "This is a titleee" },
-    // });
-
-    // fireEvent(await findByTestId("button-submit"), new MouseEvent("click"));
-
-    // await waitFor(() => expect(Api.editIncident).toHaveBeenCalledTimes(1));
   });
 
   afterEach(() => {

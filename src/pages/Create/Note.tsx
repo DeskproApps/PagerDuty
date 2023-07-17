@@ -5,13 +5,13 @@ import {
   useDeskproAppClient,
   useDeskproAppEvents,
   useInitialisedDeskproAppClient,
+  useQueryWithClient,
 } from "@deskpro/app-sdk";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { createNote, getCurrentUser } from "../../api/api";
 import { InputWithTitle } from "../../components/InputWithTitle/InputWithTitle";
 import { LoadingSpinnerCenter } from "../../components/LoadingSpinnerCenter/LoadingSpinnerCenter";
-import { useQueryWithClient } from "../../hooks/useQueryWithClient";
 
 export const CreateNote = () => {
   const { client } = useDeskproAppClient();
@@ -37,7 +37,7 @@ export const CreateNote = () => {
     },
   });
 
-  const currentUserQuery = useQueryWithClient("currentUser", async (client) =>
+  const currentUserQuery = useQueryWithClient(["currentUser"], async (client) =>
     getCurrentUser(client)
   );
 

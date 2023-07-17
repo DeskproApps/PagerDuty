@@ -1,4 +1,4 @@
-import { Button, Stack } from "@deskpro/app-sdk";
+import { Button, Stack, useQueryWithClient } from "@deskpro/app-sdk";
 import { useEffect, useState } from "react";
 import { getIncidentSchema } from "../../schemas";
 import { ZodTypeAny, z } from "zod";
@@ -11,10 +11,7 @@ import {
   getCreateIncidentMeta,
   getCurrentUser,
 } from "../../api/api";
-import {
-  useQueryMutationWithClient,
-  useQueryWithClient,
-} from "../../hooks/useQueryWithClient";
+import { useQueryMutationWithClient } from "../../hooks/useQueryWithClient";
 import { Incident } from "../../types/Incident";
 import { useNavigate } from "react-router-dom";
 import { LoadingSpinnerCenter } from "../LoadingSpinnerCenter/LoadingSpinnerCenter";
@@ -37,7 +34,7 @@ export const CreateIncident = () => {
     resolver: zodResolver(schema as ZodTypeAny),
   });
 
-  const currentUserQuery = useQueryWithClient("currentUser", async (client) =>
+  const currentUserQuery = useQueryWithClient(["currentUser"], async (client) =>
     getCurrentUser(client)
   );
 
@@ -102,7 +99,7 @@ export const CreateIncident = () => {
         <Stack>
           <Button
             type="submit"
-            text={submitMutation.isIdle ? "Create" : "Creating..."}
+            loading={!submitMutation.isIdle}
             disabled={!submitMutation.isIdle}
             intent="primary"
           ></Button>

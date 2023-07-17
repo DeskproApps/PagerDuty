@@ -3,10 +3,10 @@ import {
   Stack,
   useDeskproAppEvents,
   useInitialisedDeskproAppClient,
+  useQueryWithClient,
 } from "@deskpro/app-sdk";
 import { FieldMapping } from "../../components/FieldMapping/FieldMapping";
 import IncidentJson from "../../mapping/incident.json";
-import { useQueryWithClient } from "../../hooks/useQueryWithClient";
 import { getIncidentById, getIncidentNotes } from "../../api/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { useLinkIncidents } from "../../hooks/hooks";
@@ -62,7 +62,7 @@ export const ViewIncident = () => {
   });
 
   const incidentByIdQuery = useQueryWithClient(
-    "getIncidentById",
+    ["getIncidentById"],
     (client) => getIncidentById(client, incidentId as string),
     {
       enabled: !!incidentId,
@@ -70,7 +70,7 @@ export const ViewIncident = () => {
   );
 
   const incidentNotes = useQueryWithClient(
-    "iIncidentNotes",
+    ["iIncidentNotes"],
     (client) => getIncidentNotes(client, incidentId as string),
     {
       enabled: !!incidentId,

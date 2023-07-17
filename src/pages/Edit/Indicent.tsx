@@ -3,6 +3,7 @@ import {
   Stack,
   useDeskproAppEvents,
   useInitialisedDeskproAppClient,
+  useQueryWithClient,
 } from "@deskpro/app-sdk";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
@@ -17,10 +18,7 @@ import {
 } from "../../api/api";
 import { FieldMappingInput } from "../../components/FieldMappingInput/FieldMappingInput";
 import { LoadingSpinnerCenter } from "../../components/LoadingSpinnerCenter/LoadingSpinnerCenter";
-import {
-  useQueryMutationWithClient,
-  useQueryWithClient,
-} from "../../hooks/useQueryWithClient";
+import { useQueryMutationWithClient } from "../../hooks/useQueryWithClient";
 import incidentJson from "../../mapping/incident.json";
 import { getIncidentSchema } from "../../schemas";
 import { Incident } from "../../types/Incident";
@@ -60,7 +58,7 @@ export const EditIncident = () => {
     resolver: zodResolver(schema as ZodTypeAny),
   });
 
-  const currentUserQuery = useQueryWithClient("currentUser", async (client) =>
+  const currentUserQuery = useQueryWithClient(["currentUser"], async (client) =>
     getCurrentUser(client)
   );
 
@@ -78,7 +76,7 @@ export const EditIncident = () => {
   );
 
   const incidentByIdQuery = useQueryWithClient(
-    "getIncidentById",
+    ["getIncidentById"],
     (client) => getIncidentById(client, incidentId as string),
     {
       enabled: !!incidentId,
@@ -151,7 +149,7 @@ export const EditIncident = () => {
         <Stack justify="space-between" style={{ width: "100%" }}>
           <Button
             type="submit"
-            text={submitMutation.isIdle ? "Edit" : "Editing..."}
+            loading={!submitMutation.isIdle}
             disabled={!submitMutation.isIdle}
             intent="primary"
             data-testid="button-submit"
