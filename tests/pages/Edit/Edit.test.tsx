@@ -26,14 +26,6 @@ jest.mock("../../../src/api/api", () => {
         },
         urgency: "high",
         status: "resolved",
-        assignments: [
-          {
-            assignee: {
-              summary: "John Doe",
-              id: "1",
-            },
-          },
-        ],
         incident_key: "123456789",
         service: {
           id: "1",
@@ -48,7 +40,6 @@ jest.mock("../../../src/api/api", () => {
     getCreateIncidentMeta: () => ({
       priority: [],
       services: [],
-      assignments: [{ id: "1" }],
       urgency: [],
       status: [],
     }),

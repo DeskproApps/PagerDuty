@@ -46,8 +46,8 @@ export const getIncidentSchema = (
   const schema = getMetadataBasedSchema(fields, customInputs);
 
   const transformedSchema = schema.transform((obj) => {
-    const assignees = obj.assignments.map((e: string) => {
-      const assignee = incidentMeta.assignments.find(
+    const assignees = obj.assignments?.map((e: string) => {
+      const assignee = incidentMeta.assignments?.find(
         (u) => u.id === e
       ) as Awaited<ReturnType<typeof getCreateIncidentMeta>>["assignments"][0];
       return {
