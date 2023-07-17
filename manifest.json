@@ -8,7 +8,7 @@
   "hasDevMode": true,
   "targets": [
     {
-      "target": "user_sidebar",
+      "target": "ticket_sidebar",
       "entrypoint": "index.html"
     }
   ],
@@ -32,7 +32,7 @@
   },
   "entityAssociations": {
     "linkedIncidents": {
-      "entity": "person",
+      "entity": "ticket",
       "type": "external_id",
       "title": "Linked Incidents"
     }
