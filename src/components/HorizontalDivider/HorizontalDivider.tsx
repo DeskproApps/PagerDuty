@@ -8,7 +8,6 @@ export const HorizontalDivider = ({ full }: Props) => {
       style={{
         width: "100vw",
         color: "#EFF0F0",
-        marginBottom: "10px",
         marginLeft: full ? "-10px" : "0px",
       }}
     />

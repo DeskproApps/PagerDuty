@@ -10,30 +10,65 @@
       "required": true
     },
     {
-      "name": "type",
-      "label": "Type",
-      "type": "text",
+      "name": "services",
+      "label": "Services",
+      "type": "dropdown",
       "required": true
     },
     {
       "name": "status",
       "label": "Status",
-      "type": "text"
+      "type": "dropdown"
     },
     {
-      "name": "assignee",
-      "label": "Assignee",
-      "type": "text"
+      "name": "assignments",
+      "label": "Assignees",
+      "type": "dropdown",
+      "multiple": true
     },
     {
       "name": "urgency",
       "label": "Urgency",
-      "type": "text"
+      "type": "dropdown"
     },
     {
       "name": "priority",
       "label": "Priority",
-      "type": "summary"
+      "type": "dropdown"
+    },
+    {
+      "name": "description",
+      "label": "Description",
+      "type": "text"
+    }
+  ],
+  "edit": [
+    {
+      "name": "title",
+      "label": "Title",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "services",
+      "label": "Services",
+      "type": "dropdown",
+      "required": true
+    },
+    {
+      "name": "status",
+      "label": "Status",
+      "type": "dropdown"
+    },
+    {
+      "name": "urgency",
+      "label": "Urgency",
+      "type": "dropdown"
+    },
+    {
+      "name": "priority",
+      "label": "Priority",
+      "type": "dropdown"
     },
     {
       "name": "description",
@@ -44,71 +79,71 @@
   "view": [
     [
       {
-        "name": "incident_number",
-        "label": "Incident Number",
+        "name": "impacted_services",
+        "label": "Impacted Services",
+        "type": "summary"
+      }
+    ],
+    [
+      {
+        "name": "priority",
+        "label": "Priority",
+        "type": "summary"
+      }
+    ],
+    [
+      {
+        "name": "urgency",
+        "label": "Urgency",
         "type": "text"
       }
     ],
     [
       {
-        "name": "incident_number",
-        "label": "Incident Number",
+        "name": "status",
+        "label": "Status",
         "type": "text"
       }
     ],
     [
       {
-        "name": "incident_number",
-        "label": "Incident Number",
+        "name": "assignments",
+        "label": "Assignees",
+        "type": "assignees"
+      }
+    ],
+    [
+      {
+        "name": "created_at",
+        "label": "Created at",
+        "type": "date"
+      }
+    ],
+    [
+      {
+        "name": "resolved_at",
+        "label": "Resolved at",
+        "type": "date"
+      }
+    ],
+    [
+      {
+        "name": "incident_key",
+        "label": "Incident Key",
         "type": "text"
       }
     ],
     [
       {
-        "name": "incident_number",
-        "label": "Incident Number",
-        "type": "text"
+        "name": "service",
+        "label": "Service description",
+        "type": "summary"
       }
     ],
     [
       {
-        "name": "incident_number",
-        "label": "Incident Number",
-        "type": "text"
-      }
-    ],
-    [
-      {
-        "name": "incident_number",
-        "label": "Incident Number",
-        "type": "text"
-      }
-    ],
-    [
-      {
-        "name": "incident_number",
-        "label": "Incident Number",
-        "type": "text"
-      }
-    ],
-    [
-      {
-        "name": "incident_number",
-        "label": "Incident Number",
-        "type": "text"
-      }
-    ],
-    [
-      {
-        "name": "incident_number",
-        "label": "Incident Number",
-        "type": "text"
-      }
-    ],
-    [
-      {
-        "name": "incident_number",
-        "label": "Incident Number",
+        "name": "description",
+        "label": "Description",
         "type": "text"
       }
     ]

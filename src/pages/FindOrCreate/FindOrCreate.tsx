@@ -1,11 +1,11 @@
 import { Stack, TwoButtonGroup } from "@deskpro/app-sdk";
 import { useState } from "react";
 import { faMagnifyingGlass, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { LinkIncident } from "../../components/IncidentLinkPage/Link";
-import { CreateIncident } from "../../components/IncidentLinkPage/Create";
+import { LinkIncident } from "../../components/LinkIncident/Link";
+import { CreateIncident } from "../../components/MutateIncident/MutateIncident";
 
-export const FindOrCreate = () => {
-  const [page, setPage] = useState<0 | 1>(0);
+export const FindOrCreate = ({ pageParam }: { pageParam?: 0 | 1 }) => {
+  const [page, setPage] = useState<0 | 1>(pageParam || 0);
 
   return (
     <Stack vertical>

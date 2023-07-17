@@ -9,7 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useQueryWithClient } from "../hooks/useQueryWithClient";
 import { useEffect, useState } from "react";
-import { useLinkIncidents } from "../hooks/hooks";
+import { useLinkIncidents, useTicketCount } from "../hooks/hooks";
 import { getIncidentsById } from "../api/api";
 import { FieldMapping } from "../components/FieldMapping/FieldMapping";
 import IncidentJson from "../mapping/incident.json";
@@ -19,7 +19,40 @@ export const Main = () => {
   const { context } = useDeskproLatestAppContext();
   const navigate = useNavigate();
   const [incidentIds, setIncidentIds] = useState<string[]>([]);
+  const [incidentLinketCount, setIncidentLinkedCount] = useState<
+    Record<string, number>
+  >({});
   const { getLinkedIncidents } = useLinkIncidents();
+  const { getMultipleIncidentTicketCount } = useTicketCount();
+
+  useInitialisedDeskproAppClient((client) => {
+    client.setTitle("PagerDuty");
+
+    client.registerElement("homeButton", {
+      type: "home_button",
+    });
+
+    client.deregisterElement("menuButton");
+
+    client.registerElement("menuButton", {
+      type: "menu",
+      items: [
+        {
+          title: "Go to Link/Create Incident",
+          payload: {
+            type: "changePage",
+            page: "/",
+          },
+        },
+      ],
+    });
+
+    client.deregisterElement("editButton");
+
+    client.registerElement("refreshButton", {
+      type: "refresh_button",
+    });
+  }, []);
 
   useDeskproAppEvents({
     async onElementEvent(id) {
@@ -33,21 +66,6 @@ export const Main = () => {
       }
     },
   });
-
-  useInitialisedDeskproAppClient((client) => {
-    client.setTitle("PagerDuty");
-
-    client.registerElement("homeButton", {
-      type: "home_button",
-    });
-
-    client.deregisterElement("editButton");
-
-    client.registerElement("refreshButton", {
-      type: "refresh_button",
-    });
-  }, []);
-
   const incidentsByIdQuery = useQueryWithClient(
     "getIncidentsById",
     (client) => getIncidentsById(client, incidentIds),
@@ -69,18 +87,28 @@ export const Main = () => {
       }
 
       setIncidentIds(linkedIncidents as string[]);
+
+      const incidentLinkedCount = await getMultipleIncidentTicketCount(
+        linkedIncidents
+      );
+
+      setIncidentLinkedCount(incidentLinkedCount);
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [context, client]);
 
   const incidents = incidentsByIdQuery.data;
 
-  if (incidentsByIdQuery.isFetching || !incidents) return <LoadingSpinner />;
+  if (incidentsByIdQuery.isFetching || !incidents || !incidentLinketCount)
+    return <LoadingSpinner />;
 
   return (
     <Stack vertical style={{ width: "100%" }}>
       <FieldMapping
-        fields={incidents}
+        fields={incidents.map((e) => ({
+          ...e.incident,
+          linked_tickets: incidentLinketCount[e.incident.id],
+        }))}
         metadata={IncidentJson.link}
         idKey={IncidentJson.idKey}
         internalChildUrl={`/view/incident/`}

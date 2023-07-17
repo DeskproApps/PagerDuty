@@ -4,24 +4,27 @@ import {
   Stack,
   useDeskproAppClient,
   useDeskproAppEvents,
-  useDeskproLatestAppContext,
   useInitialisedDeskproAppClient,
 } from "@deskpro/app-sdk";
-import { useNavigate, useParams } from "react-router-dom";
-import { InputWithTitle } from "../../components/InputWithTitle/InputWithTitle";
 import { useState } from "react";
-import { createComment } from "../../api/api";
+import { useNavigate, useParams } from "react-router-dom";
+import { createNote, getCurrentUser } from "../../api/api";
+import { InputWithTitle } from "../../components/InputWithTitle/InputWithTitle";
+import { LoadingSpinnerCenter } from "../../components/LoadingSpinnerCenter/LoadingSpinnerCenter";
+import { useQueryWithClient } from "../../hooks/useQueryWithClient";
 
-export const CreateComment = () => {
+export const CreateNote = () => {
   const { client } = useDeskproAppClient();
   const navigate = useNavigate();
-  const { orderId } = useParams();
+  const { incidentId } = useParams();
 
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const [comment, setNote] = useState<string>("");
+  const [note, setNote] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
 
   useInitialisedDeskproAppClient((client) => {
+    client.setTitle("Comment");
+
     client.deregisterElement("editButton");
   });
 
@@ -34,6 +37,14 @@ export const CreateComment = () => {
     },
   });
 
+  const currentUserQuery = useQueryWithClient("currentUser", async (client) =>
+    getCurrentUser(client)
+  );
+
+  if (currentUserQuery.isFetching) return <LoadingSpinnerCenter />;
+
+  const currentUser = currentUserQuery.data?.user;
+
   return (
     <Stack style={{ width: "100%" }} vertical gap={8}>
       <InputWithTitle
@@ -42,7 +53,7 @@ export const CreateComment = () => {
         //@ts-ignore wrong type
         setValue={(e) => setNote(e.target.value)}
         data-testid="note-input"
-        value={comment}
+        value={note}
         required={true}
       />
       <Stack justify="space-between" style={{ width: "100%" }}>
@@ -53,17 +64,23 @@ export const CreateComment = () => {
 
             setSubmitting(true);
 
-            if (comment.length === 0) {
+            if (note.length === 0) {
               setError("Note cannot be empty");
 
               return;
             }
 
-            await createComment(client, orderId as string, comment);
+            await createNote(
+              client,
+              incidentId as string,
+              note,
+              currentUser?.email
+            );
 
             navigate(-1);
           }}
           text={submitting ? "Creating..." : "Create"}
+          disabled={submitting}
         />
         <Button onClick={() => navigate(-1)} text="Cancel" intent="secondary" />
       </Stack>

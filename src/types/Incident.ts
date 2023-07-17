@@ -24,8 +24,8 @@ export interface Incident {
   alert_counts: AlertCounts;
   is_mergeable: boolean;
   escalation_policy: EscalationPolicy;
-  teams: any[];
-  pending_actions: any[];
+  teams: [];
+  pending_actions: [];
   acknowledgements: Acknowledgement[];
   basic_alert_grouping: null;
   alert_grouping: null;
@@ -33,7 +33,7 @@ export interface Incident {
   priority: Priority | null;
   incidents_responders: IncidentsResponder[];
   responder_requests: ResponderRequest[];
-  subscriber_requests: any[];
+  subscriber_requests: [];
   urgency: string;
   id: string;
   type: string;

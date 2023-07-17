@@ -6,10 +6,7 @@ import { Incident } from "../types/Incident";
 export const mapFieldValues = (
   metadataFields: IJson["list"][0] | IJson["view"][0],
   field: Incident
-): {
-  key: string | number;
-  value: string | number | ReactElement;
-}[] => {
+) => {
   return metadataFields.map((metadataField) => {
     let value;
     switch (metadataField.type) {
@@ -19,32 +16,15 @@ export const mapFieldValues = (
         ).toLocaleDateString("en-GB");
         break;
 
-        break;
       case "key": {
         value = getObjectValue(field, metadataField.name);
 
         break;
       }
 
-      // case "url": {
-      //   value = field[metadataField.name as keyof APIArrayReturnTypes] ? (
-      //     <StyledLink
-      //       to={
-      //         field[metadataField.name as keyof APIArrayReturnTypes] as string
-      //       }
-      //     >
-      //       {field[metadataField.name as keyof APIArrayReturnTypes] as string}
-      //     </StyledLink>
-      //   ) : (
-      //     ""
-      //   );
-
-      //   break;
-      // }
-
       case "assignees": {
         value = field.assignments.reduce(
-          (acc, assignment) => acc + `${assignment.assignee.summary}`,
+          (acc, assignment) => acc + `${assignment.assignee.summary}, `,
           ""
         );
 
@@ -52,10 +32,19 @@ export const mapFieldValues = (
       }
 
       case "summary": {
-        value = (
-          field[metadataField.name as keyof Incident] as { summary: string }
-        )?.summary;
-
+        (() => {
+          if (Array.isArray(field[metadataField.name as keyof Incident])) {
+            value = (
+              field[metadataField.name as keyof Incident] as {
+                summary: string;
+              }[]
+            )?.reduce((acc, summary) => acc + `${summary.summary}`, "");
+          } else {
+            value = (
+              field[metadataField.name as keyof Incident] as { summary: string }
+            )?.summary;
+          }
+        })();
         break;
       }
 
@@ -68,7 +57,7 @@ export const mapFieldValues = (
 
     return {
       key: metadataField.label,
-      value: value as string | number | ReactElement,
+      value: value as string | number | ReactElement | undefined,
     };
   });
 };

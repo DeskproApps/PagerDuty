@@ -8,6 +8,7 @@ import {
   Property,
   Stack,
   useDeskproAppTheme,
+  useDeskproLatestAppContext,
 } from "@deskpro/app-sdk";
 import { ReactElement } from "react";
 import { StyledLink } from "../../styles";
@@ -22,7 +23,7 @@ const SpaceBetweenFields = ({
 }: {
   field: {
     key: string | number;
-    value: string | number | ReactElement;
+    value: string | number | ReactElement | undefined;
   };
 }) => {
   return (
@@ -64,6 +65,7 @@ export const FieldMapping = ({
   title,
 }: Props) => {
   const { theme } = useDeskproAppTheme();
+  const { context } = useDeskproLatestAppContext();
 
   return (
     <Stack vertical gap={5} style={{ width: "100%" }}>
@@ -86,7 +88,7 @@ export const FieldMapping = ({
             )}
             {externalUrl && (
               <ExternalIconLink
-                href={externalUrl}
+                href={context?.settings.instance_url + "/" + externalUrl}
                 icon={<AppLogo />}
               ></ExternalIconLink>
             )}
@@ -95,23 +97,30 @@ export const FieldMapping = ({
       {fields.map((field, i) => (
         <Stack vertical style={{ width: "100%" }} gap={10} key={i}>
           {(internalChildUrl || childTitleAccessor || externalChildUrl) && (
-            <Stack style={{ justifyContent: "space-between", width: "100%" }}>
+            <Stack
+              style={{
+                justifyContent: "space-between",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
               {internalChildUrl && childTitleAccessor && (
                 <StyledLink to={internalChildUrl + field[idKey]}>
                   {childTitleAccessor(field)}
                 </StyledLink>
               )}
               {!internalChildUrl && childTitleAccessor && (
-                <H3>{childTitleAccessor(field)}</H3>
+                <H3 style={{ fontSize: "12px" }}>
+                  {childTitleAccessor(field)}
+                </H3>
               )}
               {externalChildUrl && (
                 <ExternalIconLink
                   href={
+                    context?.settings.instance_url +
+                    "/" +
                     externalChildUrl +
-                    field[idKey] +
-                    (externalChildUrl.includes("post.php")
-                      ? "&action=edit"
-                      : "")
+                    field[idKey]
                   }
                   icon={<AppLogo />}
                 ></ExternalIconLink>
@@ -179,17 +188,21 @@ export const FieldMapping = ({
                   <Stack gap={20} vertical style={{ width: "100%" }} key={i}>
                     {usableFields
                       .filter((e) => e.key)
-                      .map((usableField, usableFieldI) => (
-                        <Stack
-                          vertical
-                          style={{ width: "100%" }}
-                          key={usableFieldI}
-                        >
-                          <SpaceBetweenFields
-                            field={usableField}
-                          ></SpaceBetweenFields>
-                        </Stack>
-                      ))}
+                      .map((usableField, usableFieldI) => {
+                        if (!usableField.value) return;
+
+                        return (
+                          <Stack
+                            vertical
+                            style={{ width: "100%" }}
+                            key={usableFieldI}
+                          >
+                            <SpaceBetweenFields
+                              field={usableField}
+                            ></SpaceBetweenFields>
+                          </Stack>
+                        );
+                      })}
                   </Stack>
                 );
             }

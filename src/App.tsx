@@ -17,8 +17,11 @@ import "@deskpro/deskpro-ui/dist/deskpro-custom-icons.css";
 import "@deskpro/deskpro-ui/dist/deskpro-ui.css";
 import { Suspense } from "react";
 import { Redirect } from "./components/Redirect/Redirect";
-import { query } from "./utils/query";
+import { CreateNote } from "./pages/Create/Note";
 import { FindOrCreate } from "./pages/FindOrCreate/FindOrCreate";
+import { ViewIncident } from "./pages/View/Incident";
+import { query } from "./utils/query";
+import { EditIncident } from "./pages/Edit/Indicent";
 
 function App() {
   return (
@@ -30,9 +33,24 @@ function App() {
               <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
                 <Routes>
                   <Route path="/">
+                    <Route path="create">
+                      <Route path="note/:incidentId" element={<CreateNote />} />
+                    </Route>
+                    <Route path="edit">
+                      <Route
+                        path="incident/:incidentId"
+                        element={<EditIncident />}
+                      />
+                    </Route>
                     <Route path="/findOrCreate" element={<FindOrCreate />} />
                     <Route path="/redirect" element={<Redirect />} />
                     <Route index element={<Main />} />
+                    <Route path="view">
+                      <Route
+                        path="incident/:incidentId"
+                        element={<ViewIncident />}
+                      />
+                    </Route>
                   </Route>
                 </Routes>
               </ErrorBoundary>

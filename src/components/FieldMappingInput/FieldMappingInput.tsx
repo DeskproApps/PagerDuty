@@ -17,8 +17,14 @@ type Props = {
     label: string;
     type: string;
     required?: boolean;
+    multiple?: boolean;
   };
-  dropdownData: { [key: string]: string[] };
+  dropdownData: {
+    [key: string]: {
+      key: string;
+      value: string;
+    }[];
+  };
   watch: UseFormWatch<any>;
   setValue: UseFormSetValue<any>;
   register: UseFormRegister<any>;
@@ -69,8 +75,7 @@ export const FieldMappingInput = forwardRef(
             data={dropdownData[field.name]}
             onChange={(e) => setValue(field.name, e)}
             value={watch(field.name)}
-            valueName={field.name}
-            keyName={field.name}
+            multiple={field.multiple}
           />
         );
       }

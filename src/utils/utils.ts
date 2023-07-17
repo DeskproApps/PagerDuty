@@ -58,15 +58,28 @@ export const makeFirstLetterUppercase = (str: string) => {
 };
 
 export const formatDateSince = (date: Date) => {
-  const currentDate = new Date();
-  const timeDiff = Math.abs(currentDate.getTime() - date.getTime());
-  const yearDiff = Math.floor(timeDiff / (1000 * 3600 * 24 * 365));
-  const monthDiff = Math.floor(timeDiff / (1000 * 3600 * 24 * 30));
-  const dayDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+  const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
 
-  if (yearDiff > 0) return `${yearDiff}y`;
+  let interval = seconds / 31536000;
 
-  if (monthDiff > 0) return `${monthDiff}mo`;
-
-  return `${dayDiff}d`;
+  if (interval > 1) {
+    return Math.floor(interval) + " years";
+  }
+  interval = seconds / 2592000;
+  if (interval > 1) {
+    return Math.floor(interval) + " months";
+  }
+  interval = seconds / 86400;
+  if (interval > 1) {
+    return Math.floor(interval) + " days";
+  }
+  interval = seconds / 3600;
+  if (interval > 1) {
+    return Math.floor(interval) + " hours";
+  }
+  interval = seconds / 60;
+  if (interval > 1) {
+    return Math.floor(interval) + " minutes";
+  }
+  return Math.floor(seconds) + " seconds";
 };

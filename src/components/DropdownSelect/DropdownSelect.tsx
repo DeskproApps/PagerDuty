@@ -8,7 +8,6 @@ import {
   H1,
   Stack,
   useDeskproAppTheme,
-  P8,
   AnyIcon,
 } from "@deskpro/app-sdk";
 import {
@@ -16,24 +15,19 @@ import {
   faExternalLinkAlt,
   faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
-import { useMemo } from "react";
-
-interface Status {
-  key: string;
-  value: string;
-  label: JSX.Element;
-  type: string;
-}
+import { ReactNode, useMemo } from "react";
 
 type Props = {
-  data?: any[];
+  data?: {
+    key: string;
+    value: string;
+  }[];
   onChange: (key: string) => void;
   title: string;
-  value: string;
+  value: string | string[];
   error: boolean;
-  keyName: string;
-  valueName: string;
   required?: boolean;
+  multiple?: boolean;
 };
 export const DropdownSelect = ({
   data,
@@ -41,42 +35,56 @@ export const DropdownSelect = ({
   title,
   value,
   error,
-  keyName,
-  valueName,
   required,
+  multiple,
 }: Props) => {
   const { theme } = useDeskproAppTheme();
   // This works fine but the types are completely wrong
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dataOptions = useMemo<any>(() => {
     return data?.map((dataInList) => ({
-      key: dataInList[keyName],
-      label: <Label label={dataInList[valueName]}></Label>,
-      value: dataInList[valueName],
+      key: dataInList.key,
+      label: <Label label={dataInList.key}></Label>,
+      value: dataInList.value,
       type: "value" as const,
     }));
-  }, [data, valueName, keyName]);
+  }, [data]) as {
+    value: string;
+    key: string;
+    label: ReactNode;
+    type: "value";
+  }[];
+
   return (
     <Stack
       vertical
       style={{ marginTop: "5px", color: theme.colors.grey80, width: "100%" }}
     >
       <Stack>
-        <P8>{title}</P8>
+        <H1>{title}</H1>
         {required && (
           <Stack style={{ color: "red" }}>
             <H1>⠀*</H1>
           </Stack>
         )}
       </Stack>
-      <DropdownComponent<Status, HTMLDivElement>
+      <DropdownComponent<any, HTMLDivElement>
         placement="bottom-start"
         options={dataOptions}
         fetchMoreText={"Fetch more"}
         autoscrollText={"Autoscroll"}
         selectedIcon={faCheck as AnyIcon}
         externalLinkIcon={faExternalLinkAlt as AnyIcon}
-        onSelectOption={(option) => onChange(option.key)}
+        // @ts-ignore
+        onSelectOption={(option) => {
+          onChange(
+            multiple
+              ? value?.includes(option.value)
+                ? ((value as string[]) || []).filter((e) => option.value !== e)
+                : [...(value || []), option.value]
+              : option.value
+          );
+        }}
       >
         {({ targetProps, targetRef }: DropdownTargetProps<HTMLDivElement>) => (
           <DivAsInput
@@ -88,9 +96,11 @@ export const DropdownSelect = ({
             placeholder="Enter value"
             style={{ fontWeight: "400 !important" }}
             value={
-              dataOptions.find(
-                (e: { value: string; key: string }) => e.key == value
-              )?.value ?? ""
+              multiple
+                ? dataOptions
+                    .filter((e) => value?.includes(e.value))
+                    .reduce((a, c) => a + `${c.key}, `, "")
+                : dataOptions.find((e) => e.value == value)?.key
             }
           />
         )}

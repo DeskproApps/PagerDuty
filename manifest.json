@@ -19,6 +19,21 @@
       "type": "string",
       "isRequired": true,
       "isBackendOnly": true
+    },
+    "instance_url": {
+      "title": "PagerDuty Instance URL",
+      "description": "E.g. https://deskpro.eu.pagerduty.com",
+      "validationPattern": "^https?:\\/\\/.+\\.+pagerduty.com$",
+      "type": "string",
+      "isRequired": true,
+      "isBackendOnly": false
+    }
+  },
+  "entityAssociations": {
+    "linkedIncidents": {
+      "entity": "person",
+      "type": "external_id",
+      "title": "Linked Incidents"
     }
   },
   "proxy": {
@@ -26,7 +41,9 @@
       {
         "url": "https://api.pagerduty.com/.*",
         "methods": [
-          "GET"
+          "GET",
+          "POST",
+          "PUT"
         ],
         "timeout": 20
       }
