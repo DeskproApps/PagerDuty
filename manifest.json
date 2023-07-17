@@ -12,6 +12,7 @@
       "entrypoint": "index.html"
     }
   ],
+  "serveUrl": "https://apps-cdn.deskpro-service.com/__name__/__version__",
   "settings": {
     "api_key": {
       "title": "API Key",
