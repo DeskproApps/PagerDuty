@@ -196,6 +196,13 @@
         "label": "Deskpro Tickets",
         "type": "text"
       }
+    ],
+    [
+      {
+        "name": "incident_key",
+        "label": "Incident Key",
+        "type": "incidentKey"
+      }
     ]
   ]
 }

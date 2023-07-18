@@ -96,7 +96,11 @@ export const DropdownSelect = ({
               multiple
                 ? dataOptions
                     .filter((e) => value?.includes(e.value))
-                    .reduce((a, c) => a + `${c.key}, `, "")
+                    .reduce(
+                      (a, c, i, arr) =>
+                        a + `${c.key}${i === arr.length - 1 ? "" : ", "} `,
+                      ""
+                    )
                 : dataOptions.find((e) => e.value == value)?.key
             }
           />

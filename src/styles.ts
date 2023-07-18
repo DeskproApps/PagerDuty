@@ -1,3 +1,4 @@
+import { H1 } from "@deskpro/deskpro-ui";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -9,4 +10,9 @@ export const StyledLink = styled(Link)`
   text-decoration: none;
   font-weight: 500;
   cursor: ${({ to }) => (to ? "pointer" : "default")};
+`;
+
+export const Title = styled(H1)`
+  color: ${({ theme }) => theme.colors.grey100};
+  font-size: 12px;
 `;

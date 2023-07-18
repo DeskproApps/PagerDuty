@@ -24,7 +24,11 @@ export const mapFieldValues = (
 
       case "assignees": {
         value = field.assignments.reduce(
-          (acc, assignment) => acc + `${assignment.assignee.summary}, `,
+          (acc, assignment, i) =>
+            acc +
+            `${assignment.assignee.summary}${
+              i === field.assignments.length - 1 ? "" : ", "
+            } `,
           ""
         );
 
@@ -45,6 +49,19 @@ export const mapFieldValues = (
             )?.summary;
           }
         })();
+        break;
+      }
+
+      case "incidentKey": {
+        if (
+          (field[metadataField.name as keyof Incident] as string).includes(
+            "REDACTED"
+          )
+        )
+          break;
+
+        value = field[metadataField.name as keyof Incident];
+
         break;
       }
 

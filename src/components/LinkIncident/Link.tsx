@@ -2,7 +2,6 @@ import {
   AnyIcon,
   Button,
   Stack,
-  Title,
   useInitialisedDeskproAppClient,
   useQueryWithClient,
 } from "@deskpro/app-sdk";
@@ -16,6 +15,7 @@ import IncidentJson from "../../mapping/incident.json";
 import { FieldMapping } from "../FieldMapping/FieldMapping";
 import { useLinkIncidents, useTicketCount } from "../../hooks/hooks";
 import { LoadingSpinnerCenter } from "../LoadingSpinnerCenter/LoadingSpinnerCenter";
+import { Title } from "../../styles";
 
 export const LinkIncident = () => {
   const [inputText, setInputText] = useState<string>("");
@@ -25,7 +25,6 @@ export const LinkIncident = () => {
     Record<string, number>
   >({});
   const [page, setPage] = useState<number>(0);
-
   const { debouncedValue: debouncedText } = useDebounce(inputText, 300);
   const { getLinkedIncidents, linkIncidents } = useLinkIncidents();
   const { getMultipleIncidentTicketCount } = useTicketCount();
@@ -63,9 +62,6 @@ export const LinkIncident = () => {
 
   const incidentsData = incidentsQuery.data;
 
-  if (incidentsData?.incidents.length === 0)
-    return <Title title="No Incidents Found." />;
-
   return (
     <Stack gap={10} style={{ width: "100%" }} vertical>
       <Input
@@ -75,7 +71,7 @@ export const LinkIncident = () => {
         type="text"
         leftIcon={faMagnifyingGlass as AnyIcon}
       />
-      {!incidentsQuery.isSuccess || !incidentLinketCount ? (
+      {!incidentsQuery.isSuccess ? (
         <LoadingSpinnerCenter />
       ) : (
         <Stack vertical gap={6} style={{ width: "100%" }}>
@@ -98,7 +94,7 @@ export const LinkIncident = () => {
             </Stack>
             <HorizontalDivider />
           </Stack>
-          {incidentsData?.incidents && (
+          {incidentsData?.incidents.length !== 0 ? (
             <Stack vertical gap={5} style={{ width: "100%" }}>
               {incidentsData?.incidents.map((item, i) => {
                 return (
@@ -138,7 +134,7 @@ export const LinkIncident = () => {
                   </Stack>
                 );
               })}
-              {incidentsData.more && (
+              {incidentsData?.more && (
                 <Button
                   style={{
                     width: "97%",
@@ -151,6 +147,8 @@ export const LinkIncident = () => {
                 ></Button>
               )}
             </Stack>
+          ) : (
+            <Title>No Incidents Found.</Title>
           )}
         </Stack>
       )}

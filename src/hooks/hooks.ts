@@ -75,19 +75,17 @@ export const useLinkIncidents = () => {
   const { incrementIncidentTicketCount, decrementIncidentTicketCount } =
     useTicketCount();
 
-  const deskproUser = context?.data.user;
+  const ticket = context?.data.ticket;
 
   const linkIncidents = useCallback(
     async (incidentsId: string[]) => {
-      if (!context || !incidentsId.length || !client || !deskproUser) return;
+      if (!context || !incidentsId.length || !client || !ticket) return;
 
       setIsLinking(true);
 
       await Promise.all(
         (incidentsId || []).map((id) =>
-          client
-            ?.getEntityAssociation("linkedIncidents", deskproUser?.id)
-            .set(id)
+          client?.getEntityAssociation("linkedIncidents", ticket?.id).set(id)
         )
       );
 
@@ -100,29 +98,29 @@ export const useLinkIncidents = () => {
       setIsLinking(false);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [context, client, deskproUser, incrementIncidentTicketCount]
+    [context, client, ticket, incrementIncidentTicketCount]
   );
 
   const getLinkedIncidents = useCallback(async () => {
-    if (!client || !deskproUser) return;
+    if (!client || !ticket) return;
 
     return await client
-      .getEntityAssociation("linkedIncidents", deskproUser?.id)
+      .getEntityAssociation("linkedIncidents", ticket?.id)
       .list();
-  }, [client, deskproUser]);
+  }, [client, ticket]);
 
   const unlinkIncident = useCallback(
     async (incidentId: string) => {
-      if (!client || !deskproUser) return;
+      if (!client || !ticket) return;
 
       await client
-        .getEntityAssociation("linkedIncidents", deskproUser?.id)
+        .getEntityAssociation("linkedIncidents", ticket?.id)
         .delete(incidentId);
 
       await decrementIncidentTicketCount(incidentId);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     },
-    [client, decrementIncidentTicketCount, deskproUser]
+    [client, decrementIncidentTicketCount, ticket]
   );
   return {
     linkIncidents,

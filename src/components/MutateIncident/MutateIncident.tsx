@@ -99,6 +99,7 @@ export const CreateIncident = () => {
         <Stack>
           <Button
             type="submit"
+            text="Create"
             loading={!submitMutation.isIdle}
             disabled={!submitMutation.isIdle}
             intent="primary"
