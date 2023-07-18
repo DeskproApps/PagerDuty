@@ -4,6 +4,7 @@ specifiers:
   '@deskpro/app-sdk': 1.2.14
   '@deskpro/deskpro-ui': ^4.7.0
   '@fortawesome/free-solid-svg-icons': ^6.4.0
+  '@fortawesome/react-fontawesome': ^0.2.0
   '@heroicons/react': 1.0.6
   '@hookform/resolvers': ^3.1.1
   '@jest/globals': ^29.3.1
@@ -53,6 +54,7 @@ dependencies:
   '@deskpro/app-sdk': 1.2.14_45719ea55af201dd921157d6e694b571
   '@deskpro/deskpro-ui': 4.7.0_e411952371d0cb7a1cdbc78413ecc9c1
   '@fortawesome/free-solid-svg-icons': 6.4.0
+  '@fortawesome/react-fontawesome': 0.2.0_react@18.2.0
   '@heroicons/react': 1.0.6_react@18.2.0
   '@hookform/resolvers': 3.1.1_react-hook-form@7.45.1
   '@tanstack/react-query': 4.29.19_react-dom@18.2.0+react@18.2.0
@@ -757,6 +759,16 @@ packages:
       react: '>=16.x'
     dependencies:
       '@fortawesome/fontawesome-svg-core': 6.2.1
+      prop-types: 15.8.1
+      react: 18.2.0
+    dev: false
+
+  /@fortawesome/react-fontawesome/0.2.0_react@18.2.0:
+    resolution: {integrity: sha512-uHg75Rb/XORTtVt7OS9WoK8uM276Ufi7gCzshVWkUJbHhh3svsUUeqXerrM96Wm7fRiDzfKRwSoahhMIkGAYHw==}
+    peerDependencies:
+      '@fortawesome/fontawesome-svg-core': ~1 || ~6
+      react: '>=16.3'
+    dependencies:
       prop-types: 15.8.1
       react: 18.2.0
     dev: false

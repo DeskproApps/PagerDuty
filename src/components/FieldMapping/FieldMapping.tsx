@@ -128,20 +128,13 @@ export const FieldMapping = ({
             </Stack>
           )}
           {metadata?.map((metadataFields, i) => {
-            const usableFields = mapFieldValues(metadataFields, field);
+            const usableFields = mapFieldValues(metadataFields, field, context);
 
             switch (usableFields.length) {
               case 1:
                 if (!usableFields[0].value) return;
 
-                return metadataFields.some((e) => e.format === "horizontal") ? (
-                  <Stack justify="space-between" style={{ width: "100%" }}>
-                    <H1 style={{ fontSize: "14px" }}>{usableFields[0].key}</H1>
-                    <H1 style={{ fontSize: "14px" }}>
-                      {usableFields[0].value}
-                    </H1>
-                  </Stack>
-                ) : (
+                return (
                   <Stack vertical gap={4} key={i} style={{ width: "100%" }}>
                     <H2 style={{ color: theme?.colors.grey80 }}>
                       {usableFields[0].key}

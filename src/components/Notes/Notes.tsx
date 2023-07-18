@@ -1,6 +1,6 @@
 import { H1, H2, Stack } from "@deskpro/app-sdk";
 import { IncidentNote } from "../../api/types";
-import { formatDateSince } from "../../utils/utils";
+import { formatDateSince } from "../../utils/dateUtils";
 import { HorizontalDivider } from "../HorizontalDivider/HorizontalDivider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";

@@ -1,4 +1,5 @@
 import { H1 } from "@deskpro/deskpro-ui";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -15,4 +16,15 @@ export const StyledLink = styled(Link)`
 export const Title = styled(H1)`
   color: ${({ theme }) => theme.colors.grey100};
   font-size: 12px;
+`;
+
+export const FontAwesomeIconHover = styled(FontAwesomeIcon)`
+  &:hover {
+    cursor: pointer;
+    text-decoration: none;
+  }
+  &:visited {
+    text-decoration: none;
+    color: orange;
+  }
 `;

@@ -2,6 +2,7 @@ import {
   AnyIcon,
   Button,
   Stack,
+  useDeskproAppEvents,
   useInitialisedDeskproAppClient,
   useQueryWithClient,
 } from "@deskpro/app-sdk";
@@ -16,6 +17,7 @@ import { FieldMapping } from "../FieldMapping/FieldMapping";
 import { useLinkIncidents, useTicketCount } from "../../hooks/hooks";
 import { LoadingSpinnerCenter } from "../LoadingSpinnerCenter/LoadingSpinnerCenter";
 import { Title } from "../../styles";
+import { useNavigate } from "react-router-dom";
 
 export const LinkIncident = () => {
   const [inputText, setInputText] = useState<string>("");
@@ -28,10 +30,24 @@ export const LinkIncident = () => {
   const { debouncedValue: debouncedText } = useDebounce(inputText, 300);
   const { getLinkedIncidents, linkIncidents } = useLinkIncidents();
   const { getMultipleIncidentTicketCount } = useTicketCount();
+  const navigate = useNavigate();
 
   useInitialisedDeskproAppClient((client) => {
     client.setTitle("Link Incident");
+
+    client.registerElement("homeButton", {
+      type: "home_button",
+    });
   }, []);
+
+  useDeskproAppEvents({
+    async onElementEvent(id) {
+      switch (id) {
+        case "homeButton":
+          navigate("/redirect");
+      }
+    },
+  });
 
   const incidentsQuery = useQueryWithClient(
     ["getIncidents", page.toString(), debouncedText],

@@ -24,6 +24,10 @@ export const ViewIncident = () => {
       type: "edit_button",
     });
 
+    client.registerElement("homeButton", {
+      type: "home_button",
+    });
+
     client.deregisterElement("menuButton");
 
     client.registerElement("menuButton", {

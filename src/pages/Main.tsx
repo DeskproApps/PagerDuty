@@ -29,23 +29,12 @@ export const Main = () => {
   useInitialisedDeskproAppClient((client) => {
     client.setTitle("PagerDuty");
 
-    client.registerElement("homeButton", {
-      type: "home_button",
-    });
+    client.deregisterElement("homeButton");
 
     client.deregisterElement("menuButton");
 
-    client.registerElement("menuButton", {
-      type: "menu",
-      items: [
-        {
-          title: "Go to Link/Create Incident",
-          payload: {
-            type: "changePage",
-            page: "/",
-          },
-        },
-      ],
+    client.registerElement("plusButton", {
+      type: "plus_button",
     });
 
     client.deregisterElement("editButton");
@@ -55,15 +44,19 @@ export const Main = () => {
     });
   }, []);
 
+  useInitialisedDeskproAppClient(
+    (client) => {
+      client.setBadgeCount(incidentIds.length);
+    },
+    [incidentIds]
+  );
+
   useDeskproAppEvents({
     async onElementEvent(id) {
       switch (id) {
-        case "menuButton":
+        case "plusButton":
           navigate("/findOrCreate");
           break;
-
-        case "homeButton":
-          navigate("/redirect");
       }
     },
   });

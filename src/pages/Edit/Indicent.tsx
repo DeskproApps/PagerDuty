@@ -86,7 +86,7 @@ export const EditIncident = () => {
   useEffect(() => {
     if (!submitMutation.isSuccess) return;
 
-    navigate("/redirect");
+    navigate("/view/" + incidentId);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitMutation.isSuccess]);
@@ -151,6 +151,7 @@ export const EditIncident = () => {
             type="submit"
             loading={!submitMutation.isIdle}
             disabled={!submitMutation.isIdle}
+            text="Edit"
             intent="primary"
             data-testid="button-submit"
           ></Button>

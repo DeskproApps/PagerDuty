@@ -1,4 +1,9 @@
-import { Button, Stack, useQueryWithClient } from "@deskpro/app-sdk";
+import {
+  Button,
+  Stack,
+  useDeskproAppEvents,
+  useQueryWithClient,
+} from "@deskpro/app-sdk";
 import { useEffect, useState } from "react";
 import { getIncidentSchema } from "../../schemas";
 import { ZodTypeAny, z } from "zod";
@@ -32,6 +37,15 @@ export const CreateIncident = () => {
     watch,
   } = useForm({
     resolver: zodResolver(schema as ZodTypeAny),
+  });
+
+  useDeskproAppEvents({
+    async onElementEvent(id) {
+      switch (id) {
+        case "homeButton":
+          navigate("/redirect");
+      }
+    },
   });
 
   const currentUserQuery = useQueryWithClient(["currentUser"], async (client) =>
