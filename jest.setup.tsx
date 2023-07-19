@@ -48,6 +48,7 @@ jest.mock("@deskpro/app-sdk", () => ({
   },
   useDeskproAppClient: () => ({
     client: {
+      setBadgeCount: () => {},
       setHeight: () => {},
       getEntityAssociation: () => ({
         list: () => ({}),
@@ -78,6 +79,7 @@ jest.mock("@deskpro/app-sdk", () => ({
     callback: (param: Record<string, unknown>) => void
   ) => {
     callback({
+      setBadgeCount: () => {},
       registerElement: () => {},
       deregisterElement: () => {},
       setHeight: () => {},
