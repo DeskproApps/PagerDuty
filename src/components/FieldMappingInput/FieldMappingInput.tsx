@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { H1, Stack, TextArea, useDeskproAppTheme } from "@deskpro/app-sdk";
+import { useDeskproAppTheme } from "@deskpro/app-sdk";
 import { forwardRef } from "react";
 import { FieldErrorsImpl } from "react-hook-form";
 import {
@@ -9,6 +9,7 @@ import {
 } from "react-hook-form/dist/types";
 import { InputWithTitleRegister } from "../InputWithTitle/InputWithTitleRegister";
 import { DropdownSelect } from "../DropdownSelect/DropdownSelect";
+import { H1, Stack, TextArea } from "@deskpro/deskpro-ui";
 
 type Props = {
   errors: Partial<FieldErrorsImpl<any>>;

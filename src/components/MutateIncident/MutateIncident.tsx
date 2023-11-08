@@ -1,9 +1,4 @@
-import {
-  Button,
-  Stack,
-  useDeskproAppEvents,
-  useQueryWithClient,
-} from "@deskpro/app-sdk";
+import { useDeskproAppEvents, useQueryWithClient } from "@deskpro/app-sdk";
 import { useEffect, useState } from "react";
 import { getIncidentSchema } from "../../schemas";
 import { ZodTypeAny, z } from "zod";
@@ -21,6 +16,7 @@ import { Incident } from "../../types/Incident";
 import { useNavigate } from "react-router-dom";
 import { LoadingSpinnerCenter } from "../LoadingSpinnerCenter/LoadingSpinnerCenter";
 import { useLinkIncidents } from "../../hooks/hooks";
+import { Button, Stack } from "@deskpro/deskpro-ui";
 
 const inputs = incidentJson.create;
 

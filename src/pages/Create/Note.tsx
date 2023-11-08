@@ -1,7 +1,4 @@
 import {
-  Button,
-  P8,
-  Stack,
   useDeskproAppClient,
   useDeskproAppEvents,
   useInitialisedDeskproAppClient,
@@ -12,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { createNote, getCurrentUser } from "../../api/api";
 import { InputWithTitle } from "../../components/InputWithTitle/InputWithTitle";
 import { LoadingSpinnerCenter } from "../../components/LoadingSpinnerCenter/LoadingSpinnerCenter";
+import { Button, P8, Stack } from "@deskpro/deskpro-ui";
 
 export const CreateNote = () => {
   const { client } = useDeskproAppClient();

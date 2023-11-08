@@ -1,6 +1,4 @@
 import {
-  Button,
-  Stack,
   useDeskproAppEvents,
   useInitialisedDeskproAppClient,
   useQueryWithClient,
@@ -22,6 +20,7 @@ import { useQueryMutationWithClient } from "../../hooks/useQueryWithClient";
 import incidentJson from "../../mapping/incident.json";
 import { getIncidentSchema } from "../../schemas";
 import { Incident } from "../../types/Incident";
+import { Button, Stack } from "@deskpro/deskpro-ui";
 
 const inputs = incidentJson.edit;
 

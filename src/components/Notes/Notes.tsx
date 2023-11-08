@@ -1,11 +1,10 @@
-import { H1, H2, Stack } from "@deskpro/app-sdk";
 import { IncidentNote } from "../../api/types";
 import { formatDateSince } from "../../utils/dateUtils";
 import { HorizontalDivider } from "../HorizontalDivider/HorizontalDivider";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { Avatar } from "@deskpro/deskpro-ui";
+import { Avatar, H1, H2, Stack } from "@deskpro/deskpro-ui";
 
 type Props = {
   notes: IncidentNote[];

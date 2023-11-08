@@ -1,12 +1,7 @@
 import {
   ExternalIconLink,
-  H1,
-  H2,
-  H3,
-  P11,
-  P5,
   Property,
-  Stack,
+  PropertyRow,
   useDeskproAppTheme,
   useDeskproLatestAppContext,
 } from "@deskpro/app-sdk";
@@ -14,9 +9,9 @@ import { ReactElement } from "react";
 import { StyledLink } from "../../styles";
 import { IJson } from "../../types/json";
 import { mapFieldValues } from "../../utils/mapFieldValues";
-import { PropertyRow } from "../PropertyRow/PropertyRow";
 import { AppLogo } from "../AppLogo/AppLogo";
 import { HorizontalDivider } from "../HorizontalDivider/HorizontalDivider";
+import { H1, H2, H3, P11, P5, Stack } from "@deskpro/deskpro-ui";
 
 const SpaceBetweenFields = ({
   field: field,
@@ -168,9 +163,11 @@ export const FieldMapping = ({
                       {usableFields
                         .filter((_, i) => i !== 2)
                         .map((e, ii) => (
-                          <Property title={e.key as string} key={ii}>
-                            <P5>{e.value != null ? e.value : "-"}</P5>
-                          </Property>
+                          <Property
+                            label={e.key as string}
+                            key={ii}
+                            text={<P5>{e.value != null ? e.value : "-"}</P5>}
+                          ></Property>
                         ))}
                     </PropertyRow>
                   </Stack>

@@ -1,6 +1,5 @@
 import {
   LoadingSpinner,
-  Stack,
   useDeskproAppEvents,
   useInitialisedDeskproAppClient,
   useQueryWithClient,
@@ -11,6 +10,7 @@ import { getIncidentById, getIncidentNotes } from "../../api/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { useLinkIncidents } from "../../hooks/hooks";
 import { Notes } from "../../components/Notes/Notes";
+import { Stack } from "@deskpro/deskpro-ui";
 
 export const ViewIncident = () => {
   const { incidentId } = useParams();

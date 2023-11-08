@@ -1,6 +1,5 @@
 import {
   LoadingSpinner,
-  Stack,
   Title,
   useDeskproAppClient,
   useDeskproAppEvents,
@@ -14,6 +13,7 @@ import { useLinkIncidents, useTicketCount } from "../hooks/hooks";
 import { getIncidentsById } from "../api/api";
 import { FieldMapping } from "../components/FieldMapping/FieldMapping";
 import IncidentJson from "../mapping/incident.json";
+import { Stack } from "@deskpro/deskpro-ui";
 
 export const Main = () => {
   const { client } = useDeskproAppClient();

@@ -1,7 +1,4 @@
 import {
-  AnyIcon,
-  Button,
-  Stack,
   useDeskproAppEvents,
   useInitialisedDeskproAppClient,
   useQueryWithClient,
@@ -9,7 +6,7 @@ import {
 import { getIncidents } from "../../api/api";
 import { useState } from "react";
 import useDebounce from "../../hooks/debounce";
-import { Checkbox, Input } from "@deskpro/deskpro-ui";
+import { AnyIcon, Button, Checkbox, Input, Stack } from "@deskpro/deskpro-ui";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { HorizontalDivider } from "../HorizontalDivider/HorizontalDivider";
 import IncidentJson from "../../mapping/incident.json";

@@ -1,13 +1,13 @@
+import { useDeskproAppTheme } from "@deskpro/app-sdk";
 import {
-  DivAsInput,
-  Dropdown as DropdownComponent,
-  DropdownTargetProps,
-  Label,
-  H1,
-  Stack,
-  useDeskproAppTheme,
   AnyIcon,
-} from "@deskpro/app-sdk";
+  DivAsInput,
+  DropdownTargetProps,
+  H1,
+  Label,
+  Stack,
+  Dropdown as DropdownComponent,
+} from "@deskpro/deskpro-ui";
 import {
   faCheck,
   faExternalLinkAlt,

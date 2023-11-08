@@ -1,4 +1,5 @@
-import { H1, Input, Stack, useDeskproAppTheme } from "@deskpro/app-sdk";
+import { useDeskproAppTheme } from "@deskpro/app-sdk";
+import { H1, Input, Stack } from "@deskpro/deskpro-ui";
 import { UseFormRegisterReturn } from "react-hook-form";
 
 interface Props {

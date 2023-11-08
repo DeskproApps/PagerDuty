@@ -1,4 +1,5 @@
-import { LoadingSpinner, Stack } from "@deskpro/app-sdk";
+import { LoadingSpinner } from "@deskpro/app-sdk";
+import { Stack } from "@deskpro/deskpro-ui";
 
 export const LoadingSpinnerCenter = () => {
   return (

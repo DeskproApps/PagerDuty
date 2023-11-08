@@ -1,4 +1,9 @@
-import { IDeskproClient, proxyFetch } from "@deskpro/app-sdk";
+import {
+  IDeskproClient,
+  ProxyResponse,
+  V2ProxyRequestInit,
+  proxyFetch,
+} from "@deskpro/app-sdk";
 import { IncidentNote, ObjectWithSummary, RequestMethod } from "./types";
 import { Incident, PaginationIncident } from "../types/Incident";
 
@@ -157,7 +162,7 @@ const installedRequest = async (
 ) => {
   const fetch = await proxyFetch(client);
 
-  const options: RequestInit = {
+  const options: V2ProxyRequestInit = {
     method,
     headers: {
       "Content-Type": "application/json",
@@ -188,5 +193,5 @@ const installedRequest = async (
   return response.json();
 };
 
-export const isResponseError = (response: Response) =>
+export const isResponseError = (response: ProxyResponse) =>
   response.status < 200 || response.status >= 400;
