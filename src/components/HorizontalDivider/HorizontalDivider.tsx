@@ -11,7 +11,7 @@ export const HorizontalDivider = ({ full }: Props) => {
     <HorizontalDividerSDK
       style={{
         width: "100vw",
-        color: theme.colors.grey10,
+        color: theme.colors?.grey10,
         marginLeft: full ? "-8px" : "0px",
       }}
     />

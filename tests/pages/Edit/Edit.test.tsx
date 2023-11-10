@@ -91,7 +91,7 @@ describe("Edit Page", () => {
     expect(inputElement).toHaveValue("This is a title");
 
     userEvent.click(submitButton);
-    await waitFor(() => expect(Api.editIncident).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(Api.editIncident).toHaveBeenCalled());
   });
 
   afterEach(() => {

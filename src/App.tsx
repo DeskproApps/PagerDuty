@@ -20,13 +20,13 @@ import { Redirect } from "./components/Redirect/Redirect";
 import { CreateNote } from "./pages/Create/Note";
 import { FindOrCreate } from "./pages/FindOrCreate/FindOrCreate";
 import { ViewIncident } from "./pages/View/Incident";
-import { query } from "./utils/query";
+import { queryClient } from "./utils/query";
 import { EditIncident } from "./pages/Edit/Indicent";
 
 function App() {
   return (
     <HashRouter>
-      <QueryClientProvider client={query}>
+      <QueryClientProvider client={queryClient}>
         <Suspense fallback={<LoadingSpinner />}>
           <QueryErrorResetBoundary>
             {({ reset }) => (

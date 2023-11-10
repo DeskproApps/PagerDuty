@@ -148,7 +148,9 @@ export const getIncidents = (
 ): Promise<PaginationIncident> => {
   return installedRequest(
     client,
-    `incidents?offset=${10 * page}&incident_key=${incidentKey}`,
+    `incidents?offset=${
+      10 * page
+    }&statuses[]=triggered&statuses[]=acknowledged&incident_key=${incidentKey}`,
     "GET"
   );
 };
