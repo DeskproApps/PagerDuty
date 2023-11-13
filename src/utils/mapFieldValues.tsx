@@ -20,6 +20,8 @@ export const mapFieldValues = (
         value = formatDate(
           new Date(field[metadataField.name as keyof Incident] as string)
         );
+
+        if (value.includes("1970")) value = "-";
         break;
 
       case "key":
