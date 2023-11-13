@@ -2,16 +2,11 @@
   "name": "@deskpro-apps/pagerduty",
   "title": "PagerDuty",
   "description": "Streamline incident response, empower your team collaboration, and elevate your operational efficiency with PagerDuty.",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scope": "agent",
   "isSingleInstall": false,
   "hasDevMode": true,
-  "targets": [
-    {
-      "target": "ticket_sidebar",
-      "entrypoint": "index.html"
-    }
-  ],
+  "targets": [{ "target": "ticket_sidebar", "entrypoint": "index.html" }],
   "serveUrl": "https://apps-cdn.deskpro-service.com/__name__/__version__",
   "settings": {
     "api_key": {
@@ -41,11 +36,7 @@
     "whitelist": [
       {
         "url": "https://api.pagerduty.com/.*",
-        "methods": [
-          "GET",
-          "POST",
-          "PUT"
-        ],
+        "methods": ["GET", "POST", "PUT"],
         "timeout": 20
       }
     ]
