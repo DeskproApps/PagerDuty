@@ -1,27 +1,51 @@
 {
-  "name": "@deskpro-apps/my-app",
-  "title": "My App",
-  "description": "My Deskpro app",
+  "name": "@deskpro-apps/pagerduty",
+  "title": "PagerDuty",
+  "description": "Streamline incident response, empower your team collaboration, and elevate your operational efficiency with PagerDuty.",
   "version": "0.0.1",
   "scope": "agent",
   "isSingleInstall": false,
   "hasDevMode": true,
-  "targets": [{ "target": "ticket_sidebar", "entrypoint": "index.html" }],
+  "targets": [
+    {
+      "target": "ticket_sidebar",
+      "entrypoint": "index.html"
+    }
+  ],
   "serveUrl": "https://apps-cdn.deskpro-service.com/__name__/__version__",
   "settings": {
-    "example": {
-      "title": "Example Setting",
-      "description": "Example backend only setting",
+    "api_key": {
+      "title": "API Key",
+      "description": "API Key can be obtained by following our setup guide",
       "type": "string",
-      "isRequired": false,
+      "isRequired": true,
       "isBackendOnly": true
+    },
+    "instance_url": {
+      "title": "PagerDuty Instance URL",
+      "description": "E.g. https://deskpro.eu.pagerduty.com",
+      "validationPattern": "^https?:\\/\\/.+\\.+pagerduty.com$",
+      "type": "string",
+      "isRequired": true,
+      "isBackendOnly": false
+    }
+  },
+  "entityAssociations": {
+    "linkedIncidents": {
+      "entity": "ticket",
+      "type": "external_id",
+      "title": "Linked Incidents"
     }
   },
   "proxy": {
     "whitelist": [
       {
-        "url": "https://jsonplaceholder.typicode.com/.*",
-        "methods": ["GET"],
+        "url": "https://api.pagerduty.com/.*",
+        "methods": [
+          "GET",
+          "POST",
+          "PUT"
+        ],
         "timeout": 20
       }
     ]

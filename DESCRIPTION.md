@@ -1,4 +1,3 @@
-My App
-======
+# PagerDuty
 
-todo: add a description that will appear alongside your app in Deskpro admin
+Streamline incident response, empower your team collaboration, and elevate your operational efficiency with PagerDuty.

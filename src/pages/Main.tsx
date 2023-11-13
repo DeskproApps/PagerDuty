@@ -1,85 +1,120 @@
-import { useState } from "react";
 import {
-  Context,
-  H1,
-  HorizontalDivider,
   LoadingSpinner,
-  Property,
-  proxyFetch,
-  Stack,
+  Title,
+  useDeskproAppClient,
   useDeskproAppEvents,
+  useDeskproLatestAppContext,
   useInitialisedDeskproAppClient,
+  useQueryWithClient,
 } from "@deskpro/app-sdk";
-import * as React from "react";
-/*
-    Note: the following page component contains example code, please remove the contents of this component before you
-    develop your app. For more information, please refer to our apps
-    guides @see https://support.deskpro.com/en-US/guides/developers/anatomy-of-an-app
-*/
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLinkIncidents, useTicketCount } from "../hooks/hooks";
+import { getIncidentsById } from "../api/api";
+import { FieldMapping } from "../components/FieldMapping/FieldMapping";
+import IncidentJson from "../mapping/incident.json";
+import { Stack } from "@deskpro/deskpro-ui";
 
 export const Main = () => {
-  const [ticketContext, setTicketContext] = useState<Context | null>(null);
-  
-  const [examplePosts, setExamplePosts] = useState<
-    { id: string; title: string }[]
-  >([]);
+  const { client } = useDeskproAppClient();
+  const { context } = useDeskproLatestAppContext();
+  const navigate = useNavigate();
+  const [incidentIds, setIncidentIds] = useState<string[]>([]);
+  const [incidentLinketCount, setIncidentLinkedCount] = useState<
+    Record<string, number>
+  >({});
+  const { getLinkedIncidents } = useLinkIncidents();
+  const { getMultipleIncidentTicketCount } = useTicketCount();
 
-  // Add a "refresh" button @see https://support.deskpro.com/en-US/guides/developers/app-elements
   useInitialisedDeskproAppClient((client) => {
-    client.registerElement("myRefreshButton", { type: "refresh_button" });
-  });
+    client.setTitle("PagerDuty");
 
-  // Listen for the "change" event and store the context data
-  // as local state @see https://support.deskpro.com/en-US/guides/developers/app-events
-  useDeskproAppEvents({
-    onChange: setTicketContext,
-  });
+    client.deregisterElement("homeButton");
 
-  // Use the apps proxy to fetch data from a third party
-  // API @see https://support.deskpro.com/en-US/guides/developers/app-proxy
-  useInitialisedDeskproAppClient((client) =>
-    (async () => {
-      const fetch = await proxyFetch(client);
+    client.deregisterElement("menuButton");
 
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
+    client.registerElement("plusButton", {
+      type: "plus_button",
+    });
 
-      const posts = await response.json();
+    client.deregisterElement("editButton");
 
-      setExamplePosts(posts.slice(0, 3));
-    })()
+    client.registerElement("refreshButton", {
+      type: "refresh_button",
+    });
+  }, []);
+
+  useInitialisedDeskproAppClient(
+    (client) => {
+      client.setBadgeCount(incidentIds.length);
+    },
+    [incidentIds]
   );
 
-  useInitialisedDeskproAppClient((client) => {
-    // If this is a "global" target app, then we can set the width of the app using CSS units
-    client.setWidth("50vw");
+  useDeskproAppEvents({
+    async onElementEvent(id) {
+      switch (id) {
+        case "plusButton":
+          navigate("/findOrCreate");
+          break;
+      }
+    },
   });
+  const incidentsByIdQuery = useQueryWithClient(
+    ["getIncidentsById"],
+    (client) => getIncidentsById(client, incidentIds),
+    {
+      enabled: !!incidentIds.length,
+    }
+  );
 
-  // If we don't have a ticket context yet, show a loading spinner
-  if (ticketContext === null) {
+  useEffect(() => {
+    if (!incidentsByIdQuery.error) return;
+  }, [incidentsByIdQuery.error]);
+
+  useEffect(() => {
+    (async () => {
+      if (!context || !client) return;
+
+      const linkedIncidents = await getLinkedIncidents();
+
+      if (!linkedIncidents || linkedIncidents.length === 0) {
+        navigate("/findOrCreate");
+
+        return;
+      }
+
+      setIncidentIds(linkedIncidents as string[]);
+
+      const incidentLinkedCount = await getMultipleIncidentTicketCount(
+        linkedIncidents
+      );
+
+      setIncidentLinkedCount(incidentLinkedCount);
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [context, client]);
+
+  const incidents = incidentsByIdQuery.data;
+
+  if (incidentsByIdQuery.isFetching || !incidents || !incidentLinketCount)
     return <LoadingSpinner />;
-  }
 
-  // Show some information about a given
-  // ticket @see https://support.deskpro.com/en-US/guides/developers/targets and third party API
+  if (incidents.length === 0) return <Title title="No found" />;
+
   return (
-    <>
-      <H1>Ticket Data</H1>
-      <Stack gap={12} vertical>
-        <Property title="Ticket ID">{ticketContext.data.ticket.id}</Property>
-        <Property title="Ticket Subject">
-          {ticketContext.data.ticket.subject}
-        </Property>
-      </Stack>
-      <HorizontalDivider width={2} />
-      <H1>Example Posts</H1>
-      {examplePosts.map((post) => (
-        <div key={post.id}>
-          <Property title="Post Title">{post.title}</Property>
-          <HorizontalDivider width={2} />
-        </div>
-      ))}
-    </>
+    <Stack vertical style={{ width: "100%" }}>
+      <FieldMapping
+        fields={incidents.map((e) => ({
+          ...e.incident,
+          linked_tickets: incidentLinketCount[e.incident.id],
+        }))}
+        metadata={IncidentJson.link}
+        idKey={IncidentJson.idKey}
+        internalChildUrl={`/view/incident/`}
+        externalChildUrl={IncidentJson.externalUrl}
+        childTitleAccessor={(e) => e.title}
+      />
+    </Stack>
   );
 };
