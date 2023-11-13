@@ -61,7 +61,6 @@ export const getIncidentSchema = (
     const newObj = {
       incident: {
         title: obj.title,
-        description: obj.description,
         urgency: obj.urgency,
         status: obj.status,
         service: {

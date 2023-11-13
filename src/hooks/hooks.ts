@@ -85,7 +85,12 @@ export const useLinkIncidents = () => {
 
       await Promise.all(
         (incidentsId || []).map((id) =>
-          client?.getEntityAssociation("linkedIncidents", ticket?.id).set(id)
+          client
+            ?.getEntityAssociation(
+              "linkedIncidents",
+              ticket.id.replace(/[^0-9]/g, "")
+            )
+            .set(id)
         )
       );
 

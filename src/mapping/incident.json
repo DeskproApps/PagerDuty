@@ -35,11 +35,6 @@
       "name": "priority",
       "label": "Priority",
       "type": "dropdown"
-    },
-    {
-      "name": "description",
-      "label": "Description",
-      "type": "textarea"
     }
   ],
   "edit": [
@@ -69,11 +64,6 @@
       "name": "priority",
       "label": "Priority",
       "type": "dropdown"
-    },
-    {
-      "name": "description",
-      "label": "Description",
-      "type": "textarea"
     }
   ],
   "view": [
@@ -138,13 +128,6 @@
         "name": "service",
         "label": "Service description",
         "type": "service"
-      }
-    ],
-    [
-      {
-        "name": "description",
-        "label": "Description",
-        "type": "text"
       }
     ]
   ],

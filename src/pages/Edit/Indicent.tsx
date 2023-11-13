@@ -85,7 +85,7 @@ export const EditIncident = () => {
   useEffect(() => {
     if (!submitMutation.isSuccess) return;
 
-    navigate("/view/" + incidentId);
+    navigate("/view/incident/" + incidentId);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitMutation.isSuccess]);

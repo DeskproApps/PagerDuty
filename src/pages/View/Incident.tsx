@@ -18,8 +18,6 @@ export const ViewIncident = () => {
   const navigate = useNavigate();
 
   useInitialisedDeskproAppClient((client) => {
-    client.setTitle("PagerDuty");
-
     client.registerElement("editButton", {
       type: "edit_button",
     });
@@ -28,20 +26,9 @@ export const ViewIncident = () => {
       type: "home_button",
     });
 
-    client.deregisterElement("menuButton");
+    client.deregisterElement("plusButton");
 
-    client.registerElement("menuButton", {
-      type: "menu",
-      items: [
-        {
-          title: "Unlink Incident",
-          payload: {
-            type: "changePage",
-            page: "/",
-          },
-        },
-      ],
-    });
+    client.deregisterElement("menuButton");
   }, []);
 
   useDeskproAppEvents({
@@ -66,7 +53,7 @@ export const ViewIncident = () => {
   });
 
   const incidentByIdQuery = useQueryWithClient(
-    ["getIncidentById"],
+    ["getIncidentById", incidentId as string],
     (client) => getIncidentById(client, incidentId as string),
     {
       enabled: !!incidentId,
@@ -74,7 +61,7 @@ export const ViewIncident = () => {
   );
 
   const incidentNotes = useQueryWithClient(
-    ["iIncidentNotes"],
+    ["iIncidentNotes", incidentId as string],
     (client) => getIncidentNotes(client, incidentId as string),
     {
       enabled: !!incidentId,
