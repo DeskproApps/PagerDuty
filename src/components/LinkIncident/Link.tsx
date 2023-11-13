@@ -96,7 +96,7 @@ export const LinkIncident = () => {
               <Button
                 onClick={() => linkIncidents(selectedIncidents)}
                 disabled={selectedIncidents.length === 0}
-                text="Link Issue"
+                text="Link Incident"
               ></Button>
               <Button
                 disabled={selectedIncidents.length === 0}
