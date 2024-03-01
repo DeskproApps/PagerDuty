@@ -1,4 +1,5 @@
 import {
+  Link,
   useDeskproAppEvents,
   useInitialisedDeskproAppClient,
   useQueryWithClient,
@@ -139,9 +140,20 @@ export const LinkIncident = () => {
                         ]}
                         metadata={IncidentJson.link}
                         idKey={IncidentJson.idKey}
-                        internalChildUrl={`/view/incident/`}
                         externalChildUrl={IncidentJson.externalUrl}
-                        childTitleAccessor={(e) => e.title}
+                        childTitleAccessor={(e) => (
+                          <Link
+                            href="#"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              if (selectedIncidents.includes(item.id)) {
+                                setSelectedIncidents(selectedIncidents.filter((e) => e !== item.id));
+                              } else {
+                                setSelectedIncidents([...selectedIncidents, item.id]);
+                              }
+                            }}
+                          >{e.title}</Link>
+                        )}
                       />
                     </Stack>
                   </Stack>
