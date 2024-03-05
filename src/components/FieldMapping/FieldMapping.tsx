@@ -5,7 +5,7 @@ import {
   useDeskproAppTheme,
   useDeskproLatestAppContext,
 } from "@deskpro/app-sdk";
-import { ReactElement } from "react";
+import { ReactElement, ReactNode } from "react";
 import { StyledLink } from "../../styles";
 import { IJson } from "../../types/json";
 import { mapFieldValues } from "../../utils/mapFieldValues";
@@ -44,7 +44,7 @@ type Props = {
   internalChildUrl?: string;
   externalChildUrl?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  childTitleAccessor?: (field: any) => string;
+  childTitleAccessor?: (field: any) => ReactNode;
   title?: string;
 };
 

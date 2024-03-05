@@ -30,18 +30,11 @@ export const Main = () => {
     client.setTitle("PagerDuty");
 
     client.deregisterElement("homeButton");
-
     client.deregisterElement("menuButton");
-
-    client.registerElement("plusButton", {
-      type: "plus_button",
-    });
-
     client.deregisterElement("editButton");
 
-    client.registerElement("refreshButton", {
-      type: "refresh_button",
-    });
+    client.registerElement("plusButton", { type: "plus_button" });
+    client.registerElement("refreshButton", { type: "refresh_button" });
   }, []);
 
   useInitialisedDeskproAppClient(

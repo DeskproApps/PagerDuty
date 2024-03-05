@@ -18,17 +18,15 @@ export const ViewIncident = () => {
   const navigate = useNavigate();
 
   useInitialisedDeskproAppClient((client) => {
-    client.registerElement("editButton", {
-      type: "edit_button",
-    });
-
-    client.registerElement("homeButton", {
-      type: "home_button",
-    });
-
     client.deregisterElement("plusButton");
-
     client.deregisterElement("menuButton");
+
+    client.registerElement("editButton", { type: "edit_button" });
+    client.registerElement("homeButton", { type: "home_button" });
+    client.registerElement("menuButton", {
+      type: "menu",
+      items: [{ title: "Unlink issue" }],
+    });
   }, []);
 
   useDeskproAppEvents({
@@ -36,16 +34,11 @@ export const ViewIncident = () => {
       switch (id) {
         case "menuButton":
           await unlinkIncident(incidentId as string);
-
           navigate("/redirect");
-
           break;
-
         case "editButton":
           navigate("/edit/incident/" + incidentId);
-
           break;
-
         case "homeButton":
           navigate("/redirect");
       }
