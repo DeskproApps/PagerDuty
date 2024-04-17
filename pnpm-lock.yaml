@@ -9,8 +9,8 @@ dependencies:
     specifier: 4.3.2
     version: 4.3.2
   '@deskpro/app-sdk':
-    specifier: ^3.0.18
-    version: 3.0.18(@babel/core@7.23.9)(@deskpro/deskpro-ui@7.18.1)(@types/react-dom@18.2.19)(@types/react@18.2.58)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
+    specifier: ^3.0.20
+    version: 3.0.20(@babel/core@7.23.9)(@deskpro/deskpro-ui@7.18.1)(@types/react-dom@18.2.19)(@types/react@18.2.58)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5)
   '@deskpro/deskpro-ui':
     specifier: ^7.1.0
     version: 7.18.1(@types/web@0.0.86)(react-dom@18.2.0)(react@18.2.0)(styled-components@5.3.11)
@@ -581,8 +581,8 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@deskpro/app-sdk@3.0.18(@babel/core@7.23.9)(@deskpro/deskpro-ui@7.18.1)(@types/react-dom@18.2.19)(@types/react@18.2.58)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5):
-    resolution: {integrity: sha512-hjmXu7Jz6rYeckJsVa7Hk4a2VnF2vhknluTpqtcwrphwESe0xIYMv2yMueObt6oPqA3yUAGHhjQ+A4UHNuFCQw==}
+  /@deskpro/app-sdk@3.0.20(@babel/core@7.23.9)(@deskpro/deskpro-ui@7.18.1)(@types/react-dom@18.2.19)(@types/react@18.2.58)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(typescript@4.9.5):
+    resolution: {integrity: sha512-Qw9Hv+D5gawdk3yN9qhv38S0ua05GQjKDUN6LZKS8p2ttuisH69sLtFahxS83JpnMfuf34l4C4Ooiqomgd9S/g==}
     engines: {node: ^16.0.0}
     peerDependencies:
       '@deskpro/deskpro-ui': ^7
@@ -1247,7 +1247,7 @@ packages:
       '@motionone/easing': 10.17.0
       '@motionone/types': 10.17.0
       '@motionone/utils': 10.17.0
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /@motionone/dom@10.12.0:
@@ -1258,14 +1258,14 @@ packages:
       '@motionone/types': 10.17.0
       '@motionone/utils': 10.17.0
       hey-listen: 1.0.8
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /@motionone/easing@10.17.0:
     resolution: {integrity: sha512-Bxe2wSuLu/qxqW4rBFS5m9tMLOw+QBh8v5A7Z5k4Ul4sTj5jAOfZG5R0bn5ywmk+Fs92Ij1feZ5pmC4TeXA8Tg==}
     dependencies:
       '@motionone/utils': 10.17.0
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /@motionone/generators@10.17.0:
@@ -1273,7 +1273,7 @@ packages:
     dependencies:
       '@motionone/types': 10.17.0
       '@motionone/utils': 10.17.0
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /@motionone/types@10.17.0:
@@ -1285,7 +1285,7 @@ packages:
     dependencies:
       '@motionone/types': 10.17.0
       hey-listen: 1.0.8
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /@nodelib/fs.scandir@2.1.5:
@@ -3131,7 +3131,7 @@ packages:
   /framesync@6.0.1:
     resolution: {integrity: sha512-fUY88kXvGiIItgNC7wcTOl0SNRCVXMKSWW2Yzfmn7EKNc+MpCzcz9DhdHcdjbrtN3c6R4H5dTY2jiCpPdysEjA==}
     dependencies:
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /fs-extra@8.1.0:
@@ -4716,7 +4716,7 @@ packages:
       framesync: 6.0.1
       hey-listen: 1.0.8
       style-value-types: 5.0.0
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /possible-typed-array-names@1.0.0:
@@ -5280,7 +5280,7 @@ packages:
     resolution: {integrity: sha512-08yq36Ikn4kx4YU6RD7jWEv27v4V+PUsOGa4n/as8Et3CuODMJQ00ENeAVXAeydX4Z2j1XHZF1K2sX4mGl18fA==}
     dependencies:
       hey-listen: 1.0.8
-      tslib: 2.4.1
+      tslib: 2.6.2
     dev: false
 
   /styled-components@5.3.11(@babel/core@7.23.9)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0):
