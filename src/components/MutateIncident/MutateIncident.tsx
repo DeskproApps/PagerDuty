@@ -44,8 +44,10 @@ export const CreateIncident = () => {
     },
   });
 
-  const currentUserQuery = useQueryWithClient(["currentUser"], async (client) =>
-    getCurrentUser(client)
+  const currentUserQuery = useQueryWithClient(
+    ["currentUser"],
+    getCurrentUser,
+    { useErrorBoundary: false },
   );
 
   const submitMutation = useQueryMutationWithClient<

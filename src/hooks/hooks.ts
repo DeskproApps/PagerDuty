@@ -77,56 +77,43 @@ export const useLinkIncidents = () => {
 
   const ticket = context?.data.ticket;
 
-  const linkIncidents = useCallback(
-    async (incidentsId: string[]) => {
-      if (!context || !incidentsId.length || !client || !ticket) return;
+  const linkIncidents = useCallback(async (incidentsId: string[]) => {
+    if (!context || !incidentsId.length || !client || !ticket) return;
 
-      setIsLinking(true);
+    setIsLinking(true);
 
-      await Promise.all(
-        (incidentsId || []).map((id) =>
-          client
-            ?.getEntityAssociation(
-              "linkedIncidents",
-              ticket.id.replace(/[^0-9]/g, "")
-            )
-            .set(id)
-        )
-      );
+    await Promise.all(
+      (incidentsId || []).map((id) => {
+        return client?.getEntityAssociation("linkedIncidents", ticket.id).set(id);
+      })
+    );
 
-      await Promise.all(
-        incidentsId.map((id) => incrementIncidentTicketCount(id))
-      );
+    await Promise.all(
+      incidentsId.map((id) => incrementIncidentTicketCount(id))
+    );
 
-      navigate("/");
+    navigate("/");
 
-      setIsLinking(false);
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [context, client, ticket, incrementIncidentTicketCount]
-  );
+    setIsLinking(false);
+  }, [context, client, ticket, navigate, incrementIncidentTicketCount]);
 
-  const getLinkedIncidents = useCallback(async () => {
+  const getLinkedIncidents = useCallback(() => {
+    if (!client || !ticket?.id) {
+      return;
+    }
+
+    return client.getEntityAssociation("linkedIncidents", ticket.id).list();
+  }, [client, ticket?.id]);
+
+  const unlinkIncident = useCallback(async (incidentId: string) => {
     if (!client || !ticket) return;
 
-    return await client
+    await client
       .getEntityAssociation("linkedIncidents", ticket?.id)
-      .list();
-  }, [client, ticket]);
+      .delete(incidentId);
 
-  const unlinkIncident = useCallback(
-    async (incidentId: string) => {
-      if (!client || !ticket) return;
-
-      await client
-        .getEntityAssociation("linkedIncidents", ticket?.id)
-        .delete(incidentId);
-
-      await decrementIncidentTicketCount(incidentId);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    },
-    [client, decrementIncidentTicketCount, ticket]
-  );
+    await decrementIncidentTicketCount(incidentId);
+  }, [client, decrementIncidentTicketCount, ticket]);
   return {
     linkIncidents,
     isLinking,
