@@ -1,6 +1,6 @@
 import {
-  LoadingSpinner,
   Title,
+  LoadingSpinner,
   useDeskproAppClient,
   useDeskproAppEvents,
   useDeskproLatestAppContext,
@@ -9,16 +9,18 @@ import {
 } from "@deskpro/app-sdk";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useLinkIncidents, useTicketCount } from "../hooks/hooks";
-import { getIncidentsById } from "../api/api";
-import { FieldMapping } from "../components/FieldMapping/FieldMapping";
-import IncidentJson from "../mapping/incident.json";
+import { useLinkIncidents, useTicketCount } from "../../hooks/hooks";
+import { useLogout } from "../../hooks/useLogout";
+import { getIncidentsById } from "../../api/api";
+import { FieldMapping } from "../../components/FieldMapping/FieldMapping";
+import IncidentJson from "../../mapping/incident.json";
 import { Stack } from "@deskpro/deskpro-ui";
 
-export const Main = () => {
+export const Home = () => {
   const { client } = useDeskproAppClient();
   const { context } = useDeskproLatestAppContext();
   const navigate = useNavigate();
+  const { logout } = useLogout();
   const [incidentIds, setIncidentIds] = useState<string[]>([]);
   const [incidentLinketCount, setIncidentLinkedCount] = useState<
     Record<string, number>
@@ -35,6 +37,10 @@ export const Main = () => {
 
     client.registerElement("plusButton", { type: "plus_button" });
     client.registerElement("refreshButton", { type: "refresh_button" });
+    client.registerElement("menuButton", {
+      type: "menu",
+      items: [{ title: "Logout" }],
+    });
   }, []);
 
   useInitialisedDeskproAppClient(
@@ -49,6 +55,9 @@ export const Main = () => {
       switch (id) {
         case "plusButton":
           navigate("/findOrCreate");
+          break;
+        case "menuButton":
+          logout();
           break;
       }
     },
@@ -90,10 +99,17 @@ export const Main = () => {
 
   const incidents = incidentsByIdQuery.data;
 
-  if (incidentsByIdQuery.isFetching || !incidents || !incidentLinketCount)
-    return <LoadingSpinner />;
+  if (incidentsByIdQuery.isFetching || !incidents || !incidentLinketCount) {
+    return (
+      <LoadingSpinner />
+    );
+  }
 
-  if (incidents.length === 0) return <Title title="No found" />;
+  if (incidents.length === 0) {
+    return (
+      <Title title="No found" />
+    );
+  }
 
   return (
     <Stack vertical style={{ width: "100%" }}>

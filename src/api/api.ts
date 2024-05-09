@@ -4,8 +4,42 @@ import {
   V2ProxyRequestInit,
   proxyFetch,
 } from "@deskpro/app-sdk";
+import { AUTH_URL, placeholders } from "../constants";
 import { IncidentNote, ObjectWithSummary, RequestMethod } from "./types";
 import { Incident, PaginationIncident } from "../types/Incident";
+
+export const getAccessTokenService = async (
+  client: IDeskproClient,
+  { code, redirectUri }: { code: string, redirectUri: string },
+) => {
+  const fetch = await proxyFetch(client);
+  const data = new FormData();
+  data.append("grant_type", "authorization_code");
+  data.append("client_id", placeholders.CLIENT_ID);
+  data.append("client_secret", placeholders.CLIENT_SECRET);
+  data.append("redirect_uri", redirectUri);
+  data.append("code", code);
+
+
+  const response = await fetch(`${AUTH_URL}/token`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: (new URLSearchParams(data as never)).toString(),
+  });
+
+  if (isResponseError(response)) {
+    throw new Error(
+      JSON.stringify({
+        status: response.status,
+        message: await response.text(),
+      })
+    );
+  }
+
+  return response.json();
+};
 
 export const editIncident = async (
   client: IDeskproClient,
@@ -27,6 +61,8 @@ export const editIncident = async (
 export const getCurrentUser = async (client: IDeskproClient) => {
   return await installedRequest(client, `users/me `, "GET");
 };
+
+export const checkAuthService = getCurrentUser;
 
 export const getIncidentNotes = async (
   client: IDeskproClient,
@@ -168,7 +204,7 @@ const installedRequest = async (
     method,
     headers: {
       "Content-Type": "application/json",
-      Authorization: "Token token=__api_key__",
+      Authorization: `Bearer ${placeholders.ACCESS_TOKEN}`,
       Accept: "application/vnd.pagerduty+json;version=2",
       ...headers,
     },
