@@ -17,12 +17,12 @@ const AdminCallback: FC<Props> = ({ callbackUrl }) => {
   }
 
   return (
-    <div style={{ margin: "0 -8px" }}>
+    <>
       <CopyToClipboardInput value={callbackUrl} />
       <Secondary type="p1">
         The callback URL will be required during PagerDuty app setup
       </Secondary>
-    </div>
+    </>
   );
 };
 

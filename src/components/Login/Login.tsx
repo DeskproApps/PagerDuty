@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { H3, TSpan, AnchorButton as AnchorButtonUI } from "@deskpro/deskpro-ui";
 import { Title } from "@deskpro/app-sdk";
+import { Container } from "../common";
 import type { FC } from "react";
 
 export type Props = {
@@ -21,7 +22,7 @@ export const AnchorButton = styled(AnchorButtonUI)`
 
 const Login: FC<Props> = ({ authUrl, onLogin, isLoading, error }) => {
   return (
-    <>
+    <Container>
       <Title as={H3} title="Log into your PagerDuty Account" />
       <AnchorButton
         intent="secondary"
@@ -34,7 +35,7 @@ const Login: FC<Props> = ({ authUrl, onLogin, isLoading, error }) => {
       />
       {" "}
       {error && <Invalid type="p1">{error}</Invalid>}
-    </>
+    </Container>
   );
 };
 

@@ -21,6 +21,7 @@ import incidentJson from "../../mapping/incident.json";
 import { getIncidentSchema } from "../../schemas";
 import { Incident } from "../../types/Incident";
 import { Button, Stack } from "@deskpro/deskpro-ui";
+import { Container } from "../../components/common";
 
 const inputs = incidentJson.edit;
 
@@ -126,42 +127,44 @@ export const EditIncident = () => {
     return <LoadingSpinnerCenter />;
 
   return (
-    <form
-      onSubmit={handleSubmit((data) => {
-        data.incident.type = "incident_reference";
-        submitMutation.mutate(data);
-      })}
-      style={{ width: "100%" }}
-    >
-      <Stack vertical style={{ width: "100%" }} gap={6}>
-        {inputs.map((field, i) => (
-          <FieldMappingInput
-            key={i}
-            dropdownData={incidentMeta.data}
-            errors={errors}
-            field={field}
-            register={register}
-            setValue={setValue}
-            watch={watch}
-          />
-        ))}
-        <Stack justify="space-between" style={{ width: "100%" }}>
-          <Button
-            type="submit"
-            loading={!submitMutation.isIdle}
-            disabled={!submitMutation.isIdle}
-            text="Edit"
-            intent="primary"
-            data-testid="button-submit"
-          ></Button>
-          <Button
-            onClick={() => navigate(-1)}
-            text={"Cancel"}
-            disabled={!submitMutation.isIdle}
-            intent="secondary"
-          ></Button>
+    <Container>
+      <form
+        onSubmit={handleSubmit((data) => {
+          data.incident.type = "incident_reference";
+          submitMutation.mutate(data);
+        })}
+        style={{ width: "100%" }}
+      >
+        <Stack vertical style={{ width: "100%" }} gap={6}>
+          {inputs.map((field, i) => (
+            <FieldMappingInput
+              key={i}
+              dropdownData={incidentMeta.data}
+              errors={errors}
+              field={field}
+              register={register}
+              setValue={setValue}
+              watch={watch}
+            />
+          ))}
+          <Stack justify="space-between" style={{ width: "100%" }}>
+            <Button
+              type="submit"
+              loading={!submitMutation.isIdle}
+              disabled={!submitMutation.isIdle}
+              text="Edit"
+              intent="primary"
+              data-testid="button-submit"
+            ></Button>
+            <Button
+              onClick={() => navigate(-1)}
+              text={"Cancel"}
+              disabled={!submitMutation.isIdle}
+              intent="secondary"
+            ></Button>
+          </Stack>
         </Stack>
-      </Stack>
-    </form>
+      </form>
+    </Container>
   );
 };

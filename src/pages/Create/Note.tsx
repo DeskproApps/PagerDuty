@@ -10,6 +10,7 @@ import { createNote, getCurrentUser } from "../../api/api";
 import { InputWithTitle } from "../../components/InputWithTitle/InputWithTitle";
 import { LoadingSpinnerCenter } from "../../components/LoadingSpinnerCenter/LoadingSpinnerCenter";
 import { Button, P8, Stack } from "@deskpro/deskpro-ui";
+import { Container } from "../../components/common";
 
 export const CreateNote = () => {
   const { client } = useDeskproAppClient();
@@ -44,43 +45,45 @@ export const CreateNote = () => {
   const currentUser = currentUserQuery.data?.user;
 
   return (
-    <Stack style={{ width: "100%" }} vertical gap={8}>
-      <InputWithTitle
-        title="New note"
-        setValue={(e) => setNote(e.target.value)}
-        data-testid="note-input"
-        value={note}
-        required={true}
-      />
-      <Stack justify="space-between" style={{ width: "100%" }}>
-        <Button
-          data-testid="button-submit"
-          onClick={async () => {
-            if (!client) return;
-
-            setSubmitting(true);
-
-            if (note.length === 0) {
-              setError("Note cannot be empty");
-
-              return;
-            }
-
-            await createNote(
-              client,
-              incidentId as string,
-              note,
-              currentUser?.email
-            );
-
-            navigate(-1);
-          }}
-          text={submitting ? "Creating..." : "Create"}
-          disabled={submitting}
+    <Container>
+      <Stack style={{ width: "100%" }} vertical gap={8}>
+        <InputWithTitle
+          title="New note"
+          setValue={(e) => setNote(e.target.value)}
+          data-testid="note-input"
+          value={note}
+          required={true}
         />
-        <Button onClick={() => navigate(-1)} text="Cancel" intent="secondary" />
+        <Stack justify="space-between" style={{ width: "100%" }}>
+          <Button
+            data-testid="button-submit"
+            onClick={async () => {
+              if (!client) return;
+
+              setSubmitting(true);
+
+              if (note.length === 0) {
+                setError("Note cannot be empty");
+
+                return;
+              }
+
+              await createNote(
+                client,
+                incidentId as string,
+                note,
+                currentUser?.email
+              );
+
+              navigate(-1);
+            }}
+            text={submitting ? "Creating..." : "Create"}
+            disabled={submitting}
+          />
+          <Button onClick={() => navigate(-1)} text="Cancel" intent="secondary" />
+        </Stack>
+        {error && <P8 color="red">{error}</P8>}
       </Stack>
-      {error && <P8 color="red">{error}</P8>}
-    </Stack>
+    </Container>
   );
 };
