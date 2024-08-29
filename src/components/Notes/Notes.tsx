@@ -47,7 +47,7 @@ export const Notes = ({ notes, id }: Props) => {
               <H2>{note.content}</H2>
             </div>
           </Stack>
-          <HorizontalDivider full={i === notes.length - 1} />
+          <HorizontalDivider />
         </Stack>
       ))}
     </Stack>

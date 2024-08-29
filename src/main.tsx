@@ -7,23 +7,27 @@ import { queryClient } from "./utils/query";
 import App from "./App";
 
 import "flatpickr/dist/themes/light.css";
-import "simplebar/dist/simplebar.min.css";
 import "tippy.js/dist/tippy.css";
 import "@deskpro/deskpro-ui/dist/deskpro-custom-icons.css";
 import "@deskpro/deskpro-ui/dist/deskpro-ui.css";
+import "./main.css";
+import "simplebar/dist/simplebar.min.css";
+import { Scrollbar } from "@deskpro/deskpro-ui";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as Element);
 
 root.render(
   <React.StrictMode>
-    <HashRouter>
-      <QueryClientProvider client={queryClient}>
-        <Suspense fallback={<LoadingSpinner />}>
-          <DeskproAppProvider>
-            <App />
-          </DeskproAppProvider>
-        </Suspense>
-      </QueryClientProvider>
-    </HashRouter>
+    <Scrollbar style={{ height: "100%", width: "100%" }}>
+      <HashRouter>
+        <QueryClientProvider client={queryClient}>
+          <Suspense fallback={<LoadingSpinner />}>
+            <DeskproAppProvider>
+              <App />
+            </DeskproAppProvider>
+          </Suspense>
+        </QueryClientProvider>
+      </HashRouter>
+    </Scrollbar>
   </React.StrictMode>
 );

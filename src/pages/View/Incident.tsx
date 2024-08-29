@@ -11,6 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useLinkIncidents } from "../../hooks/hooks";
 import { Notes } from "../../components/Notes/Notes";
 import { Stack } from "@deskpro/deskpro-ui";
+import { Container } from "../../components/common";
 
 export const ViewIncident = () => {
   const { incidentId } = useParams();
@@ -74,15 +75,17 @@ export const ViewIncident = () => {
     return <LoadingSpinner />;
 
   return (
-    <Stack vertical gap={10}>
-      <FieldMapping
-        fields={[incident]}
-        metadata={IncidentJson.view}
-        childTitleAccessor={(e) => e.title}
-        idKey={IncidentJson.idKey}
-        externalChildUrl={IncidentJson.externalUrl}
-      />
-      <Notes id={incidentId as string} notes={notes}></Notes>
-    </Stack>
+    <Container>
+      <Stack vertical gap={10}>
+        <FieldMapping
+          fields={[incident]}
+          metadata={IncidentJson.view}
+          childTitleAccessor={(e) => e.title}
+          idKey={IncidentJson.idKey}
+          externalChildUrl={IncidentJson.externalUrl}
+        />
+        <Notes id={incidentId as string} notes={notes}></Notes>
+      </Stack>
+    </Container>
   );
 };

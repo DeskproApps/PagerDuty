@@ -14,7 +14,7 @@ import { useLogout } from "../../hooks/useLogout";
 import { getIncidentsById } from "../../api/api";
 import { FieldMapping } from "../../components/FieldMapping/FieldMapping";
 import IncidentJson from "../../mapping/incident.json";
-import { Stack } from "@deskpro/deskpro-ui";
+import { Container } from "../../components/common";
 
 export const Home = () => {
   const { client } = useDeskproAppClient();
@@ -112,7 +112,7 @@ export const Home = () => {
   }
 
   return (
-    <Stack vertical style={{ width: "100%" }}>
+    <Container>
       <FieldMapping
         fields={incidents.map((e) => ({
           ...e.incident,
@@ -124,6 +124,6 @@ export const Home = () => {
         externalChildUrl={IncidentJson.externalUrl}
         childTitleAccessor={(e) => e.title}
       />
-    </Stack>
+    </Container>
   );
 };
