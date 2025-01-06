@@ -2,7 +2,7 @@
   "name": "@deskpro-apps/pagerduty",
   "title": "PagerDuty",
   "description": "Streamline incident response, empower your team collaboration, and elevate your operational efficiency with PagerDuty.",
-  "version": "1.0.18",
+  "version": "1.0.19",
   "scope": "agent",
   "isSingleInstall": false,
   "hasDevMode": true,
