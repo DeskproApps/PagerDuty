@@ -42,4 +42,4 @@ Only thing left is to copy your PagerDuty URL and paste it in the PagerDuty Inst
 
 To configure who can see and use the Space app, head to the "Permissions" tab and select those users and/or groups you'd like to have access.
 
-When you're happy, click "Install".
+When you're happy, click "Install" and you're done.
