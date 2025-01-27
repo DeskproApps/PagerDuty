@@ -5,7 +5,7 @@ import {
   useQueryWithClient,
 } from "@deskpro/app-sdk";
 import { getIncidents } from "../../api/api";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import useDebounce from "../../hooks/debounce";
 import { AnyIcon, Button, Checkbox, Input, Stack } from "@deskpro/deskpro-ui";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -79,7 +79,7 @@ export const LinkIncident = () => {
   return (
     <Stack gap={10} style={{ width: "100%" }} vertical>
       <Input
-        onChange={(e) => setInputText(e.target.value)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => setInputText(e.target.value)}
         value={inputText}
         placeholder="Enter Incident Key"
         type="text"

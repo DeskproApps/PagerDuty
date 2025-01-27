@@ -11,7 +11,7 @@ import { LatestDeskproAppContext } from "@deskpro/app-sdk";
 export const mapFieldValues = (
   metadataFields: IJson["list"][0] | IJson["view"][0],
   field: Incident,
-  context: LatestDeskproAppContext["context"] | null
+  context: LatestDeskproAppContext<unknown, { client_id: string, instance_url: string }>["context"] | null
 ) => {
   return metadataFields.map((metadataField) => {
     let value;
@@ -64,8 +64,7 @@ export const mapFieldValues = (
         value = field.assignments.reduce(
           (acc, assignment, i) =>
             acc +
-            `${assignment.assignee.summary}${
-              i === field.assignments.length - 1 ? "" : ", "
+            `${assignment.assignee.summary}${i === field.assignments.length - 1 ? "" : ", "
             } `,
           ""
         );

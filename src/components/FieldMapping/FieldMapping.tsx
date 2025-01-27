@@ -60,7 +60,7 @@ export const FieldMapping = ({
   title,
 }: Props) => {
   const { theme } = useDeskproAppTheme();
-  const { context } = useDeskproLatestAppContext();
+  const { context } = useDeskproLatestAppContext<unknown, { client_id: string, instance_url: string }>();
 
   return (
     <Stack vertical gap={5} style={{ width: "100%" }}>

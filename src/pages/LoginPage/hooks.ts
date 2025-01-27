@@ -14,21 +14,21 @@ import { AUTH_URL, ACCESS_TOKEN_PATH } from "../../constants";
 
 export type Result = {
   poll: () => void,
-  authUrl: string|null,
-  error: null|string,
+  authUrl: string | null,
+  error: null | string,
   isLoading: boolean,
 };
 
 const useLogin = (): Result => {
   const navigate = useNavigate();
   const { client } = useDeskproAppClient();
-  const { context } = useDeskproLatestAppContext();
-  const [callback, setCallback] = useState<OAuth2StaticCallbackUrl|undefined>();
+  const { context } = useDeskproLatestAppContext<unknown, { client_id: string, instance_url: string }>();
+  const [callback, setCallback] = useState<OAuth2StaticCallbackUrl | undefined>();
   const { asyncErrorHandler } = useAsyncError();
   const { getLinkedIncidents } = useLinkIncidents();
-  const [error, setError] = useState<null|string>(null);
+  const [error, setError] = useState<null | string>(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [authUrl, setAuthUrl] = useState<null|string>(null);
+  const [authUrl, setAuthUrl] = useState<null | string>(null);
   const clientId = useMemo(() => context?.settings?.client_id, [context]);
   const key = useMemo(() => uuidv4(), []);
 
@@ -68,12 +68,12 @@ const useLogin = (): Result => {
 
   useEffect(() => {
     if (callback?.callbackUrl && clientId) {
-        setAuthUrl(`${AUTH_URL}/authorize?${new URLSearchParams({
-          response_type: "code",
-          client_id: clientId,
-          redirect_uri: callback.callbackUrl,
-          state: key,
-        }).toString()}`);
+      setAuthUrl(`${AUTH_URL}/authorize?${new URLSearchParams({
+        response_type: "code",
+        client_id: clientId,
+        redirect_uri: callback.callbackUrl,
+        state: key,
+      }).toString()}`);
     }
   }, [key, callback, clientId]);
 

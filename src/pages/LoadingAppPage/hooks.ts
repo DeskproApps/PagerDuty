@@ -9,14 +9,14 @@ import { useLinkIncidents } from "../../hooks/hooks";
 import { AUTH_ERROR } from "../../constants";
 
 type UseLoadingApp = () => {
-  error: null|string;
+  error: null | string;
 };
 
 const useLoadingApp: UseLoadingApp = () => {
   const navigate = useNavigate();
-  const { context } = useDeskproLatestAppContext();
+  const { context } = useDeskproLatestAppContext<unknown, { client_id: string, instance_url: string }>();
   const { getLinkedIncidents } = useLinkIncidents();
-  const [error, setError] = useState<null|string>(null);
+  const [error, setError] = useState<null | string>(null);
   const clientId = useMemo(() => context?.settings?.client_id, [context]);
 
   useInitialisedDeskproAppClient((client) => {
