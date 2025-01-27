@@ -67,7 +67,7 @@ export const useTicketCount = () => {
 };
 
 export const useLinkIncidents = () => {
-  const { context } = useDeskproLatestAppContext();
+  const { context } = useDeskproLatestAppContext<{ ticket: { id: string } }, { client_id: string, instance_url: string }>();
   const { client } = useDeskproAppClient();
   const [isLinking, setIsLinking] = useState(false);
   const navigate = useNavigate();
@@ -75,7 +75,7 @@ export const useLinkIncidents = () => {
   const { incrementIncidentTicketCount, decrementIncidentTicketCount } =
     useTicketCount();
 
-  const ticket = context?.data.ticket;
+  const ticket = context?.data?.ticket;
 
   const linkIncidents = useCallback(async (incidentsId: string[]) => {
     if (!context || !incidentsId.length || !client || !ticket) return;
