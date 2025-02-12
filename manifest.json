@@ -8,20 +8,31 @@
   "hasDevMode": true,
   "targets": [{ "target": "ticket_sidebar", "entrypoint": "index.html" }],
   "serveUrl": "https://apps-cdn.deskpro-service.com/__name__/__version__",
+  "secrets": "nzGgdmH8i4L7kuM1gdYosSH+bKwi3mNtny/e51wlADA+74peZyfIDMSfwjKDgLvDGQzrU/IA69t6KnKBccRBZdoGMtagVPUV9RHY+1ZrzRytWEfgA04Xp8TGsN6GtAq7M4d3BR0b41zqZawGW4UvErsCKxGBLElrhuK0ZtLiK9W/2HZ+jIjwhIhTz0fe/KOHGLWD4oXw8VIjoS19O5pj3cBUqeeRRMjQN9Jz6nPDjyPVA36HgNYgJIa2G0BDljUSiNb+rkQgryx3OwRPJEYSDA0y571eInO482czB78r3tk/fvtgaZWT4puVzJMFvRBT49DE58EX/OnwGvY1yKKVfiztr/RNXsSszg0JwqMTgdcTFGl1sam/sQ8yuNTRRWdHV07RhLRyZUWspAbq56Ug8rNMmhBbaLiICSKybhvhrhgOB243rOB8Y/3hHf893jl7tNcYnqkVlCf5uFKYHephA80f5ICMf+WTcNxrZGkIrovB8omw7ccSILRzEF8wgXZye8hvtAwcnsP+EsHB/tpBD69sZzqQhhbBCAV6ZzZ6NjhEzPp+BgJcsBZoR3551kifPFgk7kVsYsquvn9B2da/e3koeq2OL2FuGdkAhkFxWZRc72sZ5TbIDGPs1ztT8PwPjiOTpdgCSWSnlAE3mp6OxhebsABFl+aSK/onXfqMUy0=",
   "appStoreUrl": "https://www.deskpro.com/product-embed/apps/pagerduty",
   "settings": {
+    "use_deskpro_saas": {
+      "title": "One-Click Installation",
+      "type": "boolean",
+      "default": true,
+      "isRequired": false,
+      "isBackendOnly": false,
+      "order": 5
+    },
     "client_id": {
       "title": "Client id",
       "type": "string",
-      "isRequired": true,
+      "isRequired": false,
       "isBackendOnly": false,
+      "condition": "settings.use_deskpro_saas != true",
       "order": 10
     },
     "client_secret": {
       "title": "Client Secret",
       "type": "string",
-      "isRequired": true,
+      "isRequired": false,
       "isBackendOnly": true,
+      "condition": "settings.use_deskpro_saas != true",
       "order": 20
     },
     "instance_url": {
