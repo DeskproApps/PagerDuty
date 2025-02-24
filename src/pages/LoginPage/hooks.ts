@@ -67,10 +67,11 @@ const useLogin = (): Result => {
 
     try {
       const result = await oauth2.poll()
-      await Promise.all([
-        client.setUserState(ACCESS_TOKEN_PATH, result.data.access_token, { backend: true }),
-        result.data.refresh_token ? client.setUserState(REFRESH_TOKEN_PATH, result.data.refresh_token, { backend: true }) : Promise.resolve(undefined)
-      ])
+
+      await client.setUserState(ACCESS_TOKEN_PATH, result.data.access_token, { backend: true })
+      if (result.data.refresh_token) {
+        await client.setUserState(REFRESH_TOKEN_PATH, result.data.refresh_token, { backend: true })
+      }
 
       const linkedIncidents = await getLinkedIncidents()
 
