@@ -8,7 +8,7 @@
   "hasDevMode": true,
   "targets": [{ "target": "ticket_sidebar", "entrypoint": "index.html" }],
   "serveUrl": "https://apps-cdn.deskpro-service.com/__name__/__version__",
-  "secrets": "nzGgdmH8i4L7kuM1gdYosSH+bKwi3mNtny/e51wlADA+74peZyfIDMSfwjKDgLvDGQzrU/IA69t6KnKBccRBZdoGMtagVPUV9RHY+1ZrzRytWEfgA04Xp8TGsN6GtAq7M4d3BR0b41zqZawGW4UvErsCKxGBLElrhuK0ZtLiK9W/2HZ+jIjwhIhTz0fe/KOHGLWD4oXw8VIjoS19O5pj3cBUqeeRRMjQN9Jz6nPDjyPVA36HgNYgJIa2G0BDljUSiNb+rkQgryx3OwRPJEYSDA0y571eInO482czB78r3tk/fvtgaZWT4puVzJMFvRBT49DE58EX/OnwGvY1yKKVfiztr/RNXsSszg0JwqMTgdcTFGl1sam/sQ8yuNTRRWdHV07RhLRyZUWspAbq56Ug8rNMmhBbaLiICSKybhvhrhgOB243rOB8Y/3hHf893jl7tNcYnqkVlCf5uFKYHephA80f5ICMf+WTcNxrZGkIrovB8omw7ccSILRzEF8wgXZye8hvtAwcnsP+EsHB/tpBD69sZzqQhhbBCAV6ZzZ6NjhEzPp+BgJcsBZoR3551kifPFgk7kVsYsquvn9B2da/e3koeq2OL2FuGdkAhkFxWZRc72sZ5TbIDGPs1ztT8PwPjiOTpdgCSWSnlAE3mp6OxhebsABFl+aSK/onXfqMUy0=",
+  "secrets": "FgSzEROmSL0eM+ch/cuCXXkKsDyZbHLrfInr7JvezbwOdJP7qAd4HTcN0Rlq0hH+uEnhZV/qDwUZ77JEUXgQjVagtyCvp4FISoBccScpW6gFj9HmQj8+5eHcN2hm/J3ea9KfE2ph58ynginjqLxMVV7RlHi3O28+7pxWsDV4yQ7mtGfLfqAyxxYjM9m+ivNxHyLs+1Lv1IMjP6KzCwZRdMldq3ZGQCcnMQD+uai1wU5sb/cxiX79yzyo4wGdHonLUZb9CBvirHH+2wSuE4kuwKhgAy5NxE9gv1ugtZ7SHa3WQYziK1fwwEGj5k7+VPAK5Qyc0V2kmld7RY1EUUDgySvFowUs34yE/CbREI50b56wPNkpZHXRkzoLIsX32YHfFzpuMu/6kDJDdDMHLbMbakIkDXx2Sa4twzWaZzp3eOyLXcCFiG4fr+BiDOrjOPMTR3PbLQdQAyWH0slbwpGrryggz3uEYs0UYB1/eEu9L3Wh3Hg69YlD/Z0jHJz9Z7Q9eEboW2FDoBS4li4F+7jteeCdQmgOFBn7+c6Co8sI/9EvWT7lHQgAUm8Wsksa79vSorKkSsXj0T1R1PwkC9bJje74wdsTs4ASJqcHzFt7xFu84zINP8au3DOODHbhutinWU21YNENC2vDZUo2fZiwHcVdniyr5aS39297QPXLfY4=",
   "appStoreUrl": "https://www.deskpro.com/product-embed/apps/pagerduty",
   "settings": {
     "use_deskpro_saas": {
