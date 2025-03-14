@@ -42,7 +42,7 @@ export const EditIncident = () => {
     async onElementEvent(id) {
       switch (id) {
         case "homeButton":
-          navigate("/redirect");
+          navigate("/home");
       }
     },
   });

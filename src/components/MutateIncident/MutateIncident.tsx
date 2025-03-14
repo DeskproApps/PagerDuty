@@ -1,4 +1,4 @@
-import { useDeskproAppEvents, useQueryWithClient } from "@deskpro/app-sdk";
+import { useDeskproAppEvents, useDeskproElements, useQueryWithClient } from "@deskpro/app-sdk";
 import { useEffect, useState } from "react";
 import { getIncidentSchema } from "../../schemas";
 import { ZodTypeAny, z } from "zod";
@@ -35,11 +35,19 @@ export const CreateIncident = () => {
     resolver: zodResolver(schema as ZodTypeAny),
   });
 
+  useDeskproElements(({ registerElement, clearElements }) => {
+    clearElements()
+    registerElement("homeButton", {
+      type: "home_button",
+    });
+    registerElement("refreshButton", { type: "refresh_button" });
+  })
+
   useDeskproAppEvents({
     async onElementEvent(id) {
       switch (id) {
         case "homeButton":
-          navigate("/redirect");
+          navigate("/home");
       }
     },
   });
