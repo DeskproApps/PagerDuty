@@ -6,6 +6,7 @@ import {
   useDeskproLatestAppContext,
   useInitialisedDeskproAppClient,
   useQueryWithClient,
+  useDeskproElements,
 } from "@deskpro/app-sdk";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -28,23 +29,21 @@ export const Home = () => {
   const { getLinkedIncidents } = useLinkIncidents();
   const { getMultipleIncidentTicketCount } = useTicketCount();
 
-  useInitialisedDeskproAppClient((client) => {
-    client.setTitle("PagerDuty");
-
-    client.deregisterElement("homeButton");
-    client.deregisterElement("menuButton");
-    client.deregisterElement("editButton");
-
-    client.registerElement("plusButton", { type: "plus_button" });
-    client.registerElement("refreshButton", { type: "refresh_button" });
-    client.registerElement("menuButton", {
+  useDeskproElements(({ registerElement, clearElements, deRegisterElement }) => {
+    clearElements()
+    deRegisterElement("editButton")
+    deRegisterElement("homeButton")
+    registerElement("plusButton", { type: "plus_button" });
+    registerElement("refreshButton", { type: "refresh_button" });
+    registerElement("menuButton", {
       type: "menu",
       items: [{ title: "Logout" }],
     });
-  }, []);
+})
 
   useInitialisedDeskproAppClient(
     (client) => {
+      client.setTitle("PagerDuty");
       client.setBadgeCount(incidentIds.length);
     },
     [incidentIds]
