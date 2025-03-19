@@ -19,13 +19,13 @@ const useLoadingApp: UseLoadingApp = () => {
 
   useInitialisedDeskproAppClient((client) => {
 
-    if (context?.settings.use_deskpro_saas === undefined) {
+    if (!context?.settings) {
       return;
     }
 
     const clientId = context?.settings.client_id;
-    const mode = context?.settings.use_deskpro_saas ? 'global' : 'local';
-    if (mode === 'local' && typeof clientId !== 'string') {
+    const mode = context?.settings.use_advanced_connect === false ? 'global' : 'local';
+    if (mode === 'local' && (typeof clientId !== 'string' || clientId.trim() === "")) {
       setError(AUTH_ERROR);
       return;
     }

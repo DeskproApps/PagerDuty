@@ -11,10 +11,11 @@
   "secrets": "g3kQej7TaujgDcr2802215aVH/N2W9/ZjbhyDk1bwyd/86xBlmhr/vLD9SMXFkj3P7KqoS7ep2gkf2fQghCrt0hBiKvdINDePve/K7CpaxX3YCvRFb34zTviZ3MpGkvJoH8/GKJ5YFwH2xics/PrpRkpYHFg2INC+n4sjA86JW7DiAlZNT06QGH4LXx818C4s39/EqAQ6sZ+l8wHDoPwQNdJ52oDCMgHwfPj5RZ+C+3ugAa/7OwLd13W033ioUF2xKMkP4PjRrqxF5v1WpI1e+Z5rRVI1AoHoILbPswNRsZEk2RQXeW8sYZdF7fKQlvlcspN30KA376worL1Nz+2SAceOxtuHTW1UuRETSlLy/yU3BtECrAJUNp4yHFg1WLzAeAqDaIAKsi/v1rIDAY0jeFlHrlSOzMjjgu63zm8Z77ptS4RdU1sMVH2UlhYS+7VHwoev4Y4AVo8WdC0y3FwJKTiPxI0Q1Tz7SIf68BsGD8gYmsJfdnbZVisHgE3sxyxrcYdCvCMwavTpc2hRkZlyOgJXjUTVqWJPSMrmyEM+8qHQVU1Kpns7Cm9F8Rl1idZTO+2m7xrpJi4RzCDuCcTK3R228BasvcZyVpIgI5yNUNv16quAP3IBiA/sTgbP+y8/pSORasd/FByxq0yLay7Myem6mloAKVz0l3cemigCAdPEWA1pwj0v/ENvMqQIvGS3cXBLl1pXqe5/W99NjcwfEn0Uvu9KNMFJaZiPMoimy9Im3OpUPLqpbx/7Zep90HUXX8E3je7AQY9dYNHVWHAMhwLtjvDsAq0Xbc4CrSoD9L5zP59HiyFJLk4y7pbikYpDn6Ho3QWAhqwB/em0T4EUZNRA1FJy+5NdQOeEDkVS+2HwuE9AOnWB1Xq3Nb7sn475/iikc+kmq1Daj7Xhw7WBIRIfyimnek/uMAzJdcLreKTRh7SFoso7SSOV8BRAdasVrnFaPDfPEJYoVw4WN1brfDmQMLnbbJ3X1ycjWF30yWETX+T6C1l+iqGC4Dr28znhZzb1oDJrcZ3hos4yqgk5Y1vkm+z4HgVVyxbBGj8RXflEXvmhbGyzr125kodF8U9piY8hvRTWeNzraicQUu5BT+7dHxYjpFa+fNojdBQrAATmL8rARw0hycyFxNj/4YUQpNGkOY9KTsxVNU/bfDgcyod3nn3EH19hhvS5O9hlmirpCpDl05oaR/3XdMtJZgW/zvC78eVldeZ/67YSNKf6acNF3lD6ujL5wPrRIeJF9c=",
   "appStoreUrl": "https://www.deskpro.com/product-embed/apps/pagerduty",
   "settings": {
-    "use_deskpro_saas": {
-      "title": "One-Click Installation",
+    "use_advanced_connect": {
+      "title": "Advanced Connect",
+      "description": "Follow the setup guide and use your credentials to connect the app to Deskpro.",
       "type": "boolean",
-      "default": true,
+      "default": false,
       "isRequired": false,
       "isBackendOnly": false,
       "order": 5
@@ -24,7 +25,7 @@
       "type": "string",
       "isRequired": false,
       "isBackendOnly": false,
-      "condition": "settings.use_deskpro_saas != true",
+      "condition": "settings.use_advanced_connect != false",
       "order": 10
     },
     "client_secret": {
@@ -32,7 +33,7 @@
       "type": "string",
       "isRequired": false,
       "isBackendOnly": true,
-      "condition": "settings.use_deskpro_saas != true",
+      "condition": "settings.use_advanced_connect != false",
       "order": 20
     },
     "instance_url": {
@@ -50,7 +51,7 @@
       "options": { "entrypoint": "#/admin/callback" },
       "isRequired": false,
       "isBackendOnly": true,
-      "condition": "settings.use_deskpro_saas != true",
+      "condition": "settings.use_advanced_connect != false",
       "order": 40
     }
   },
