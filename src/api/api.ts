@@ -216,16 +216,16 @@ const installedRequest = async (
     options
   );
 
+  // Handle errors 
   if (isResponseError(response)) {
     if (isJsonErrorResponse(response)) {
       const errorData = await response.json() as PagerDutyErrorResponse
       const errorMessage = errorData?.error?.message ?? getErrorMessageForStatusCode(response.status)
       throw new Error(errorMessage)
-    } else {
-      const errorMessage = getErrorMessageForStatusCode(response.status)
-
-      throw new Error(errorMessage)
     }
+
+    const errorMessage = getErrorMessageForStatusCode(response.status)
+    throw new Error(errorMessage)
   }
 
   return response.json();
