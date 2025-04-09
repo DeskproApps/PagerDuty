@@ -22,3 +22,9 @@ export interface Channel {
   self?: string;
   html_url?: string;
 }
+
+export interface PagerDutyErrorResponse{
+  error?:{
+    message: string
+  }
+}
