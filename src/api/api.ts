@@ -3,7 +3,7 @@ import {
   proxyFetch,
 } from "@deskpro/app-sdk";
 import { AUTH_URL, placeholders } from "../constants";
-import { IncidentNote, ObjectWithSummary, RequestMethod } from "./types";
+import { IncidentNote, ObjectWithSummary, PagerDutyErrorResponse, RequestMethod } from "./types";
 import { Incident, PaginationIncident } from "../types/Incident";
 
 export const getAccessTokenService = async (
@@ -182,8 +182,7 @@ export const getIncidents = (
 ): Promise<PaginationIncident> => {
   return installedRequest(
     client,
-    `incidents?offset=${
-      10 * page
+    `incidents?offset=${10 * page
     }&statuses[]=triggered&statuses[]=acknowledged&incident_key=${incidentKey}`,
     "GET"
   );
@@ -217,17 +216,60 @@ const installedRequest = async (
     options
   );
 
+  // Handle errors 
   if (isResponseError(response)) {
-    throw new Error(
-      JSON.stringify({
-        status: response.status,
-        message: await response.text(),
-      })
-    );
+    if (isJsonErrorResponse(response)) {
+      const errorData = await response.json() as PagerDutyErrorResponse
+      const errorMessage = errorData?.error?.message ?? getErrorMessageForStatusCode(response.status)
+      throw new Error(errorMessage)
+    }
+
+    const errorMessage = getErrorMessageForStatusCode(response.status)
+    throw new Error(errorMessage)
   }
 
   return response.json();
 };
 
-export const isResponseError = (response: Response) =>
-  response.status < 200 || response.status >= 400;
+export function isResponseError(response: Response): boolean {
+  return response.status < 200 || response.status >= 400;
+}
+
+export function isJsonErrorResponse(response: Response): boolean {
+  const contentType = response.headers.get("content-type")
+
+  return contentType !== null && contentType.includes("application/json")
+}
+
+function getErrorMessageForStatusCode(statusCode: Response["status"]): string {
+  // Source: https://developer.pagerduty.com/docs/errors  (HTTP Responses)
+  switch (statusCode) {
+    case 400:
+      return "Bad Request: The server couldn't process your request due to invalid input."
+
+    case 401:
+      return "Authentication Required: Please log in and try again."
+
+    case 402:
+      return "Payment Required: The PagerDuty account does not have access to one or more abilities needed to complete this request."
+
+    case 403:
+      return "Authorization error: Your account does not have sufficient permissions to perform the requested action."
+
+    // If all goes well, this shouldn't happen, 404s should be JSONs so the errors con be handled better at a higher level.
+    case 404:
+      return "Resource Not Found: The requested resource was not found."
+
+    case 408:
+      return "Request Timeout: The request took too long to process. Please try again."
+
+    case 429:
+      return "Too Many Requests: Wait a moment before making further requests and make them at a reduced rate."
+
+    case 500:
+      return "PagerDuty Server Error: An error occurred on PagerDuty's side while processing your request. Please try again."
+
+    default:
+      return "An unexpected PagerDuty API error occurred."
+  }
+}
