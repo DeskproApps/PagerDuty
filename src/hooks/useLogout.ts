@@ -20,6 +20,7 @@ const useLogout = (): Result => {
 
     setIsLoading(true);
 
+    client.setBadgeCount(0)
     client.deleteUserState(ACCESS_TOKEN_PATH)
       .catch(() => {})
       .finally(() => {
