@@ -63,7 +63,7 @@ const useLogin = (): Result => {
         )
 
         // Global Proxy Service
-        : await client.startOauth2Global("3fb86077-0549-467c-82d0-ef68ff5d73df");
+        : await client.startOauth2Global("9bc10556-cd90-46d6-82c6-f197a9b00726");
 
     setAuthUrl(oauth2Response.authorizationUrl)
     setOAuth2Context(oauth2Response)
