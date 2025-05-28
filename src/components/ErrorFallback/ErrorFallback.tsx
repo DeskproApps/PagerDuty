@@ -1,13 +1,11 @@
 import { faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { Container } from "../common";
 import { AnyIcon, Button, H1, H2, Stack } from "@deskpro/deskpro-ui";
+import { FallbackRender } from "@sentry/react";
 
-export const ErrorFallback = ({
+export const ErrorFallback: FallbackRender = ({
   error,
-  resetErrorBoundary,
-}: {
-  error: Error;
-  resetErrorBoundary: () => void;
+  resetError,
 }) => {
   const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred."
   return (
@@ -17,7 +15,7 @@ export const ErrorFallback = ({
         <H2>{errorMessage}</H2>
         <Button
           text="Reload"
-          onClick={resetErrorBoundary}
+          onClick={resetError}
           icon={faRefresh as AnyIcon}
           intent="secondary"
         />
