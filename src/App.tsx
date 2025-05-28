@@ -1,5 +1,4 @@
 import { QueryErrorResetBoundary } from "@tanstack/react-query";
-import { ErrorBoundary } from "react-error-boundary";
 import { Route, Routes } from "react-router-dom";
 import { ErrorFallback } from "./components/ErrorFallback/ErrorFallback";
 import { Home } from "./pages/Home/Home";
@@ -11,12 +10,13 @@ import { EditIncident } from "./pages/Edit/Indicent";
 import { LoadingAppPage } from "./pages/LoadingAppPage/LoadingAppPage";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
 import { AdminCallbackPage } from "./pages/AdminCallbackPage/AdminCallbackPage";
+import { ErrorBoundary } from "@sentry/react";
 
 function App() {
   return (
     <QueryErrorResetBoundary>
       {({ reset }) => (
-        <ErrorBoundary onReset={reset} FallbackComponent={ErrorFallback}>
+        <ErrorBoundary onReset={reset} fallback={ErrorFallback}>
           <Routes>
             <Route path="/admin/callback" element={<AdminCallbackPage/>}/>
             <Route path="/findOrCreate" element={<FindOrCreate />} />
