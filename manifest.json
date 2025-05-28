@@ -8,20 +8,32 @@
   "hasDevMode": true,
   "targets": [{ "target": "ticket_sidebar", "entrypoint": "index.html" }],
   "serveUrl": "https://apps-cdn.deskpro-service.com/__name__/__version__",
+  "secrets": "tj5yKEzlrZ7nYW3qNC/MhePS1T6bjQr1vdXpN2nJ6AzPnopHZz8k8eZr9PWXd+ZlLvnFO8wVivO1yWYEJn8PrNjKy4MXZ136aLHXIAPUQCUqlGPxFzUkaKbAJrzaF2ZJEMwDhvULn5r96e9K1k9Oxj+ZC/lclHBCxoRCcqgb/bZW5ILMSP1QehD09UynOsXxSn8UpO6OnnYHun1c5Yso0cKiiBEqzfdyvCMP/NsQjFL2dlMfJG2j22w9Y1FQDEqeDAkF2/lb1bfBDhu6Ig23iYRuOTUKUDmIPfQPTo86VJJom4i2GVmxEQIKgn8OXEuxq/QNU+Sx5m83pZq5CbXXtxFARe/ci1kuX0pDu62NtSjmvS6aXb2bWEYtQVka6LBWJ8bkQiKfYQdQNiGyrBc8YI87u+iwHp5MimSGuap/Kk9i5uyMLdmqRk7GjTDBEjjQi8hBgRK2tlarHxOT4Q2X0a+nn2RSz5kA9zFHEu35z81QNUeyPSEUOHnOE2jBS34948czXLPHPvtlq2C1NUQBUWAyZ1fw9wU69oNQhCBvkPa8S6bKT4jBdH1Oa44hL6gswhWlNkdw7WdfMgLGMfAf8uDrKUswdPZNzBHqJMM8qLWRNQPMpVXNF28oq1b06Ft17kN0uB3hWW1jxcFpZay71myUzm8D2hKB3LwuUHTLn7x5IWLJFabPQyHmgC2wZ/g+F4UgGcxsIEQiASzNw+Kh0gyq863Tab+WZHzyLVsyUVwWTxXWId8RVGE16w4eAafgdQ6JFY1sxsOFvtOt1Nb7sjMFf9mNcIgWyMNzsbD3RDnEtaaJpXOfhYy9sUIhO+9wGQo/yk2y/n5G934UpUKDCogt9U0kJWvmXmm64JB9TrvdDfYFIXVVcA/euhYKWM4/O5/VR2UQJ1qrstXdLP2m9NujJlibY3HuuDdyiPYiw48Qd3XVNevpM9MGzugh52R/cmoEdchSDnCHCKdIRdmeZ+RYJCt/j1tNCxwrQCqMcYALbjd3gW1opUfXhKJUZAuqK7x0jmoh+BTuMy3gPhYQMj71GMJj3aaMeJBIkl/6s3X28UxTohs8lSuN8rkkssVoYwCxR+DYKq60EdPFr6HBG+JDUyv5YI9WQQD5g8wbqgUXlar3HAuXl8l085JpEN8n",
   "appStoreUrl": "https://www.deskpro.com/product-embed/apps/pagerduty",
   "settings": {
+    "use_advanced_connect": {
+      "title": "Advanced Connect",
+      "description": "Follow the setup guide and use your credentials to connect the app to Deskpro.",
+      "type": "boolean",
+      "default": false,
+      "isRequired": false,
+      "isBackendOnly": false,
+      "order": 5
+    },
     "client_id": {
       "title": "Client id",
       "type": "string",
-      "isRequired": true,
+      "isRequired": false,
       "isBackendOnly": false,
+      "condition": "settings.use_advanced_connect != false",
       "order": 10
     },
     "client_secret": {
       "title": "Client Secret",
       "type": "string",
-      "isRequired": true,
+      "isRequired": false,
       "isBackendOnly": true,
+      "condition": "settings.use_advanced_connect != false",
       "order": 20
     },
     "instance_url": {
@@ -39,6 +51,7 @@
       "options": { "entrypoint": "#/admin/callback" },
       "isRequired": false,
       "isBackendOnly": true,
+      "condition": "settings.use_advanced_connect != false",
       "order": 40
     }
   },
