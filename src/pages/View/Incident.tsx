@@ -41,7 +41,7 @@ export const ViewIncident = () => {
           navigate("/edit/incident/" + incidentId);
           break;
         case "homeButton":
-          navigate("/redirect");
+          navigate("/home");
       }
     },
   });

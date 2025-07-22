@@ -31,7 +31,7 @@ export const CreateNote = () => {
     async onElementEvent(id) {
       switch (id) {
         case "homeButton":
-          navigate("/redirect");
+          navigate("/home");
       }
     },
   });

@@ -1,10 +1,10 @@
-import { useInitialisedDeskproAppClient } from "@deskpro/app-sdk";
 import { Login } from "../../components/Login";
+import { useInitialisedDeskproAppClient } from "@deskpro/app-sdk";
 import { useLogin } from "./hooks";
 import type { FC } from "react";
 
 const LoginPage: FC = () => {
-  const { poll, authUrl, isLoading, error } = useLogin();
+  const { onSignIn, authUrl, isLoading, error } = useLogin();
 
   useInitialisedDeskproAppClient((client) => {
     client.setTitle("PagerDuty");
@@ -19,7 +19,7 @@ const LoginPage: FC = () => {
   return (
     <Login
       error={error}
-      onLogin={poll}
+      onLogin={onSignIn}
       authUrl={authUrl}
       isLoading={isLoading}
     />

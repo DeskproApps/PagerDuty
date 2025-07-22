@@ -1,12 +1,10 @@
-import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  useDeskproLatestAppContext,
-  useInitialisedDeskproAppClient,
-} from "@deskpro/app-sdk";
-import { checkAuthService } from "../../api/api";
-import { useLinkIncidents } from "../../hooks/hooks";
 import { AUTH_ERROR } from "../../constants";
+import { checkAuthService } from "../../api/api";
+import { Settings } from "../../types/deskpro";
+import { useDeskproLatestAppContext, useInitialisedDeskproAppClient, } from "@deskpro/app-sdk";
+import { useLinkIncidents } from "../../hooks/hooks";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 type UseLoadingApp = () => {
   error: null | string;
@@ -14,13 +12,20 @@ type UseLoadingApp = () => {
 
 const useLoadingApp: UseLoadingApp = () => {
   const navigate = useNavigate();
-  const { context } = useDeskproLatestAppContext<unknown, { client_id: string, instance_url: string }>();
+  const { context } = useDeskproLatestAppContext<unknown, Settings>();
   const { getLinkedIncidents } = useLinkIncidents();
   const [error, setError] = useState<null | string>(null);
-  const clientId = useMemo(() => context?.settings?.client_id, [context]);
+  const instance_url = context?.settings.instance_url;
 
   useInitialisedDeskproAppClient((client) => {
-    if (!clientId) {
+
+    if (!context?.settings) {
+      return;
+    }
+
+    const clientId = context?.settings.client_id;
+    const mode = context?.settings.use_advanced_connect === false ? 'global' : 'local';
+    if (mode === 'local' && (typeof clientId !== 'string' || clientId.trim() === "")) {
       setError(AUTH_ERROR);
       return;
     }
@@ -37,7 +42,7 @@ const useLoadingApp: UseLoadingApp = () => {
         }
       })
       .catch(() => navigate("/login"));
-  }, [clientId]);
+  }, [instance_url]);
 
   return { error };
 };

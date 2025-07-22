@@ -1,6 +1,7 @@
 import {
   Link,
   useDeskproAppEvents,
+  useDeskproElements,
   useInitialisedDeskproAppClient,
   useQueryWithClient,
 } from "@deskpro/app-sdk";
@@ -30,19 +31,23 @@ export const LinkIncident = () => {
   const { getMultipleIncidentTicketCount } = useTicketCount();
   const navigate = useNavigate();
 
+  useDeskproElements(({ registerElement, clearElements }) => {
+      clearElements()
+      registerElement("homeButton", {
+        type: "home_button",
+      });
+      registerElement("refreshButton", { type: "refresh_button" });
+  })
+  
   useInitialisedDeskproAppClient((client) => {
     client.setTitle("Link Incident");
-
-    client.registerElement("homeButton", {
-      type: "home_button",
-    });
   }, []);
 
   useDeskproAppEvents({
     async onElementEvent(id) {
       switch (id) {
         case "homeButton":
-          navigate("/redirect");
+          navigate("/home");
       }
     },
   });

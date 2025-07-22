@@ -13,7 +13,9 @@ const LoadingAppPage = () => {
     client.setTitle("PagerDuty");
   }, []);
 
-  useDeskproElements(({ registerElement }) => {
+  useDeskproElements(({ registerElement, clearElements, deRegisterElement }) => {
+    clearElements()
+    deRegisterElement("editButton")
     registerElement("refreshButton", { type: "refresh_button" });
   });
 
