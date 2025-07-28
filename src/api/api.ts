@@ -183,7 +183,7 @@ export const getIncidents = (
   return installedRequest(
     client,
     `incidents?offset=${10 * page
-    }&statuses[]=triggered&statuses[]=acknowledged&incident_key=${incidentKey}`,
+    }&statuses[]=triggered&statuses[]=acknowledged&statuses[]=resolved&incident_key=${incidentKey}&date_range=all&limit=100`,
     "GET"
   );
 };
