@@ -67,12 +67,21 @@
       {
         "url": "https://identity.pagerduty.com/oauth/.*",
         "methods": ["POST"],
-        "timeout": 20
+        "timeout": 20,
+        "settingsInjection": {
+          "app_id": {
+            "body": ["client_id"]
+          },
+          "client_secret": {
+            "body": ["client_secret"]
+          }
+        }
       },
       {
         "url": "https://api.pagerduty.com/.*",
         "methods": ["GET", "POST", "PUT"],
-        "timeout": 20
+        "timeout": 20,
+        "settingsInjection": {}
       }
     ]
   }
